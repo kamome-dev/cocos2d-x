@@ -365,7 +365,8 @@ public:
 
     /** Whether or not the texture has their Alpha premultiplied. */
     bool hasPremultipliedAlpha() const;
-    
+		void setAsPremultipliedAlpha( bool pma ) { _hasPremultipliedAlpha=pma; }
+	
     /** Whether or not the texture has mip maps.*/
     bool hasMipmaps() const;
 

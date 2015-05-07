@@ -1258,6 +1258,9 @@ Sprite * Label::getLetter(int letterIndex)
     
     if (! _textSprite && letterIndex < _limitShowCount)
     {
+				if( letterIndex>=_lettersInfo.size() ) {
+						return nullptr;
+				}
         const auto &letter = _lettersInfo[letterIndex];
 
         if(! letter.def.validDefinition)
