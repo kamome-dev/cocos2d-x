@@ -58,7 +58,7 @@ endif()
 set(BUILD_CPP_TESTS_DEFAULT ON)
 set(BUILD_LUA_LIBS_DEFAULT ON)
 set(BUILD_LUA_TESTS_DEFAULT ON)
-set(BUILD_JS_LIBS_DEFAULT ON)
+set(BUILD_JS_LIBS_DEFAULT OFF)
 set(BUILD_JS_TESTS_DEFAULT OFF)
 # TODO: fix test samples for MSVC
 if(MSVC)
@@ -71,6 +71,7 @@ endif()
 
 option(USE_CHIPMUNK "Use chipmunk for physics library" ON)
 option(USE_BOX2D "Use box2d for physics library" OFF)
+option(USE_BULLET "Use bullet for physics3d library" ON)
 option(USE_WEBP "Use WebP codec" ${USE_WEBP_DEFAULT})
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(DEBUG_MODE "Debug or release?" ON)
@@ -248,6 +249,24 @@ else()
   add_definitions(-DCC_ENABLE_BOX2D_INTEGRATION=0)
 endif(USE_BOX2D)
 
+# Bullet (not prebuilded, exists as source)
+if(USE_BULLET)
+  if(USE_PREBUILT_LIBS)
+    add_subdirectory(external/bullet)
+    set(BULLET_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/bullet)
+    set(BULLET_LIBRARIES bullet)
+  else()
+    cocos_find_package(bullet BULLET REQUIRED)
+    set(BULLET_LIBRARIES bullet)
+  endif()
+  message(STATUS "Bullet include dirs: ${BULLET_INCLUDE_DIRS}")
+  add_definitions(-DCC_ENABLE_BULLET_INTEGRATION=1)
+  add_definitions(-DCC_USE_PHYSICS=1)
+else()
+  add_definitions(-DCC_ENABLE_BULLET_INTEGRATION=0)
+  add_definitions(-DCC_USE_3D_PHYSICS=0)
+endif(USE_BULLET)
+
 # Tinyxml2 (not prebuilded, exists as source)
 if(USE_PREBUILT_LIBS)
   add_subdirectory(external/tinyxml2)
@@ -323,11 +342,15 @@ endif(BUILD_LUA_LIBS)
 
 ## JS
 if(BUILD_JS_LIBS)
-    add_subdirectory(cocos/scripting/js-bindings)
+  link_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/spidermonkey/prebuilt/${PLATFORM_FOLDER}/${ARCH_DIR}
+  )
 
-  # build lua tests
+  add_subdirectory(cocos/scripting/js-bindings)
+
+  # build js tests
   if(BUILD_JS_TESTS)
-    add_subdirectory(tests/js-tests)
+    add_subdirectory(tests/js-tests/project)
   endif(BUILD_JS_TESTS)
 
 endif(BUILD_JS_LIBS)

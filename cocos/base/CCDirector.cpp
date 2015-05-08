@@ -47,6 +47,7 @@ THE SOFTWARE.
 #include "renderer/CCTextureCache.h"
 #include "renderer/ccGLStateCache.h"
 #include "renderer/CCRenderer.h"
+#include "renderer/CCRenderState.h"
 #include "2d/CCCamera.h"
 #include "base/CCUserDefault.h"
 #include "base/ccFPSImages.h"
@@ -67,6 +68,10 @@ THE SOFTWARE.
 
 #if CC_USE_PHYSICS
 #include "physics/CCPhysicsWorld.h"
+#endif
+
+#if CC_USE_3D_PHYSICS
+#include "physics3d/CCPhysics3DWorld.h"
 #endif
 
 /**
@@ -170,6 +175,7 @@ bool Director::init(void)
     initMatrixStack();
 
     _renderer = new (std::nothrow) Renderer;
+    RenderState::initialize();
 
     return true;
 }
@@ -290,6 +296,13 @@ void Director::drawScene()
         if (physicsWorld && physicsWorld->isAutoStep())
         {
             physicsWorld->update(_deltaTime, false);
+        }
+#endif
+#if CC_USE_3D_PHYSICS
+        auto physics3DWorld = _runningScene->getPhysics3DWorld();
+        if (physics3DWorld)
+        {
+            physics3DWorld->stepSimulate(_deltaTime);
         }
 #endif
         //clear draw stats
@@ -1000,6 +1013,8 @@ void Director::reset()
     UserDefault::destroyInstance();
     
     GL::invalidateStateCache();
+
+    RenderState::finalize();
     
     destroyTextureCache();
 }
