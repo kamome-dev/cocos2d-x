@@ -2170,7 +2170,9 @@ bool Image::initWithWebpData(const unsigned char * data, ssize_t dataLen)
             _data = nullptr;
             break;
         }
-        
+				premultipliedAlpha();
+
+		
         ret = true;
 	} while (0);
 #endif // (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
