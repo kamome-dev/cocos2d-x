@@ -579,6 +579,17 @@ float Label::getScaleX() const
 
 void Label::alignText()
 {
+	//一旦初期化
+	for( auto batch:_batchNodes ) {
+		if( batch!=this ) {
+			batch->removeAllChildrenWithCleanup(true);
+		}
+	}
+	removeAllChildrenWithCleanup(true);
+	_batchNodes.clear();
+	_batchNodes.push_back(this);
+
+
     if (_fontAtlas == nullptr || _currentUTF16String.empty())
     {
         setContentSize(Size::ZERO);
@@ -1275,7 +1286,13 @@ Sprite * Label::getLetter(int letterIndex)
         if(! letter.def.validDefinition)
             return nullptr;
 
-        Sprite* sp = static_cast<Sprite*>(this->getChildByTag(letterIndex));
+        Sprite* sp = nullptr;
+		for( auto batch:_batchNodes ) {
+			sp = static_cast<Sprite*>(this->getChildByTag(letterIndex));
+			if( sp!=nullptr ) {
+				return sp;
+			}
+		}
 
         if (!sp)
         {
