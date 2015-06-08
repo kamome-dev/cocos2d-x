@@ -1870,6 +1870,17 @@ private:
 #if CC_USE_PHYSICS
     friend class Scene;
 #endif //CC_USTPS
+
+
+public:
+	//Speed// for CocosTools by.MeeK
+	virtual float getTempo();
+	virtual float getTotalTempo();
+	virtual void setTempo( float tempo );
+	virtual void updateTempo();
+protected:
+	float _totaltempo;
+	float _tempo;
 };
 
 // NodeRGBA

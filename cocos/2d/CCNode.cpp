@@ -136,6 +136,8 @@ Node::Node(void)
 , _cascadeColorEnabled(false)
 , _cascadeOpacityEnabled(false)
 , _cameraMask(1)
+, _tempo( 1.0 )
+, _totaltempo( 1.0 )
 {
     // set default scheduler and actionManager
     _director = Director::getInstance();
@@ -1095,6 +1097,9 @@ void Node::addChildHelper(Node* child, int localZOrder, int tag, const std::stri
     {
         updateCascadeOpacity();
     }
+
+	updateTempo();
+
 }
 
 void Node::addChild(Node *child, int zOrder)
@@ -2323,5 +2328,37 @@ __NodeRGBA::__NodeRGBA()
 {
     CCLOG("NodeRGBA deprecated.");
 }
+
+
+
+// MARK: For CocosTools
+float Node::getTempo() {
+	return _tempo;
+}
+
+float Node::getTotalTempo() {
+	return _totaltempo;
+}
+
+void Node::setTempo( float tempo ) {
+	if( _tempo!=tempo ) {
+		_tempo = tempo;
+		//多用するなら、スケジュールで一度だけ計算する等必要
+		updateTempo();
+	}
+}
+
+void Node::updateTempo() {
+	if( getParent()==nullptr ) {
+		_totaltempo = _tempo;
+	} else {
+		_totaltempo = _tempo*getParent()->_totaltempo;
+	}
+	for (const auto& child : _children) {
+		child->updateTempo();
+	}
+}
+
+
 
 NS_CC_END

@@ -387,7 +387,7 @@ void ActionManager::update(float dt)
 
                 _currentTarget->currentActionSalvaged = false;
 
-                _currentTarget->currentAction->step(dt);
+                _currentTarget->currentAction->step(dt * _currentTarget->target->getTotalTempo() );
 
                 if (_currentTarget->currentActionSalvaged)
                 {
