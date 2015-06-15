@@ -364,6 +364,7 @@ void WebViewImpl::draw(cocos2d::Renderer *renderer, cocos2d::Mat4 const &transfo
         auto width = (rightTop.x - leftBottom.x) * glView->getScaleX() / scaleFactor;
         auto height = (rightTop.y - leftBottom.y) * glView->getScaleY() / scaleFactor;
 
+		_uiWebViewWrapper.uiWebView.alpha = this->_webView->getDisplayedOpacity()/255.0f;
         [_uiWebViewWrapper setFrameWithX:x
                                       y:y
                                   width:width
