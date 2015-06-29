@@ -580,6 +580,16 @@ float Label::getScaleX() const
 void Label::alignText()
 {
 	//一旦初期化
+	CC_SAFE_RELEASE_NULL(_reusedLetter);
+	if (_reusedLetter == nullptr)
+	{
+		_reusedLetter = Sprite::create();
+		_reusedLetter->setOpacityModifyRGB(_isOpacityModifyRGB);
+		_reusedLetter->retain();
+		_reusedLetter->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	}
+	_reusedLetter->setBatchNode(this);
+
 	for( auto batch:_batchNodes ) {
 		if( batch!=this ) {
 			batch->removeAllChildrenWithCleanup(true);
@@ -588,6 +598,11 @@ void Label::alignText()
 	removeAllChildrenWithCleanup(true);
 	_batchNodes.clear();
 	_batchNodes.push_back(this);
+	_textSprite = nullptr;
+	_shadowNode = nullptr;
+	_shadowEnabled = false;
+	_clipEnabled = false;
+	_blendFuncDirty = false;
 
 
     if (_fontAtlas == nullptr || _currentUTF16String.empty())
