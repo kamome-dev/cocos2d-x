@@ -167,6 +167,14 @@ THE SOFTWARE.
 #include "renderer/CCVertexAttribBinding.h"
 #include "renderer/CCVertexIndexBuffer.h"
 #include "renderer/CCVertexIndexData.h"
+#include "renderer/CCPrimitive.h"
+#include "renderer/CCPrimitiveCommand.h"
+#include "renderer/CCTrianglesCommand.h"
+#include "renderer/CCMaterial.h"
+#include "renderer/CCTechnique.h"
+#include "renderer/CCPass.h"
+#include "renderer/CCRenderState.h"
+#include "renderer/CCFrameBuffer.h"
 #include "renderer/ccGLStateCache.h"
 #include "renderer/ccShaders.h"
 
@@ -199,6 +207,9 @@ THE SOFTWARE.
     #include "platform/android/CCGLViewImpl-android.h"
     #include "platform/android/CCGL-android.h"
     #include "platform/android/CCStdC-android.h"
+//Enhance modification begin
+    #include "platform/android/CCEnhanceAPI-android.h"
+//Enhance modification end
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)
@@ -243,6 +254,7 @@ THE SOFTWARE.
 #include "2d/CCAnimation.h"
 #include "2d/CCAnimationCache.h"
 #include "2d/CCSprite.h"
+#include "2d/CCAutoPolygon.h"
 #include "2d/CCSpriteBatchNode.h"
 #include "2d/CCSpriteFrame.h"
 #include "2d/CCSpriteFrameCache.h"

@@ -4,7 +4,6 @@
 #include "LuaBasicConversions.h"
 
 
-
 int lua_cocos2dx_csloader_CSLoader_createNodeFromJson(lua_State* tolua_S)
 {
     int argc = 0;
@@ -192,9 +191,9 @@ int lua_cocos2dx_csloader_CSLoader_bindCallback(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 3,&arg1, "cc.CSLoader:bindCallback");
 
-        ok &= luaval_to_object<cocos2d::ui::Widget>(tolua_S, 4, "ccui.Widget",&arg2);
+        ok &= luaval_to_object<cocos2d::ui::Widget>(tolua_S, 4, "ccui.Widget",&arg2, "cc.CSLoader:bindCallback");
 
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 5, "cc.Node",&arg3);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 5, "cc.Node",&arg3, "cc.CSLoader:bindCallback");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_csloader_CSLoader_bindCallback'", nullptr);

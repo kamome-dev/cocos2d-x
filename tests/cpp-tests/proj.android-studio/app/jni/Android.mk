@@ -20,6 +20,8 @@ LOCAL_SRC_FILES := main.cpp \
 ../../../Classes/Box2DTestBed/GLES-Render.cpp \
 ../../../Classes/Box2DTestBed/Test.cpp \
 ../../../Classes/Box2DTestBed/TestEntries.cpp \
+../../../Classes/BugsTest/Bug-CCDrawNode.cpp \
+../../../Classes/BugsTest/Bug-PageViewLayout.cpp \
 ../../../Classes/BugsTest/Bug-1159.cpp \
 ../../../Classes/BugsTest/Bug-1174.cpp \
 ../../../Classes/BugsTest/Bug-350.cpp \
@@ -125,6 +127,7 @@ LOCAL_SRC_FILES := main.cpp \
 ../../../Classes/ShaderTest/ShaderTest.cpp \
 ../../../Classes/ShaderTest/ShaderTest2.cpp \
 ../../../Classes/SpineTest/SpineTest.cpp \
+../../../Classes/Scene3DTest/Scene3DTest.cpp \
 ../../../Classes/Sprite3DTest/DrawNode3D.cpp \
 ../../../Classes/Sprite3DTest/Sprite3DTest.cpp \
 ../../../Classes/SpritePolygonTest/SpritePolygonTest.cpp \
@@ -201,7 +204,8 @@ LOCAL_SRC_FILES := main.cpp \
 ../../../Classes/VisibleRect.cpp \
 ../../../Classes/ZwoptexTest/ZwoptexTest.cpp \
 ../../../Classes/controller.cpp \
-../../../Classes/testBasic.cpp
+../../../Classes/testBasic.cpp \
+../../../Classes/NavMeshTest/NavMeshTest.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \
                     $(LOCAL_PATH)/../../../../..

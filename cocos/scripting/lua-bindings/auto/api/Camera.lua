@@ -5,21 +5,38 @@
 -- @parent_module cc
 
 --------------------------------
--- Set the scene,this method shall not be invoke manually
--- @function [parent=#Camera] setScene 
+-- get depth, camera with larger depth is drawn on top of camera with smaller depth, the depth of camera with CameraFlag::DEFAULT is 0, user defined camera is -1 by default
+-- @function [parent=#Camera] getDepth 
 -- @param self
--- @param #cc.Scene scene
--- @return Camera#Camera self (return value: cc.Camera)
+-- @return char#char ret (return value: char)
+        
+--------------------------------
+-- get view projection matrix
+-- @function [parent=#Camera] getViewProjectionMatrix 
+-- @param self
+-- @return mat4_table#mat4_table ret (return value: mat4_table)
         
 --------------------------------
 -- 
--- @function [parent=#Camera] initPerspective 
+-- @function [parent=#Camera] applyViewport 
 -- @param self
--- @param #float fieldOfView
--- @param #float aspectRatio
--- @param #float nearPlane
--- @param #float farPlane
--- @return bool#bool ret (return value: bool)
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+-- Make Camera looks at target<br>
+-- param target The target camera is point at<br>
+-- param up The up vector, usually it's Y axis
+-- @function [parent=#Camera] lookAt 
+-- @param self
+-- @param #vec3_table target
+-- @param #vec3_table up
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+-- Apply the FBO, RenderTargets and viewport.
+-- @function [parent=#Camera] apply 
+-- @param self
+-- @return Camera#Camera self (return value: cc.Camera)
         
 --------------------------------
 -- Gets the camera's projection matrix.<br>
@@ -29,17 +46,38 @@
 -- @return mat4_table#mat4_table ret (return value: mat4_table)
         
 --------------------------------
--- get view projection matrix
--- @function [parent=#Camera] getViewProjectionMatrix 
+-- Get object depth towards camera
+-- @function [parent=#Camera] getDepthInView 
 -- @param self
--- @return mat4_table#mat4_table ret (return value: mat4_table)
+-- @param #mat4_table transform
+-- @return float#float ret (return value: float)
         
 --------------------------------
--- Gets the camera's view matrix.<br>
--- return The camera view matrix.
--- @function [parent=#Camera] getViewMatrix 
+-- Before rendering scene with this camera, the background need to be cleared.
+-- @function [parent=#Camera] clearBackground 
 -- @param self
--- @return mat4_table#mat4_table ret (return value: mat4_table)
+-- @param #float depth
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+-- set additional matrix for the projection matrix, it multiplys mat to projection matrix when called, used by WP8
+-- @function [parent=#Camera] setAdditionalProjection 
+-- @param self
+-- @param #mat4_table mat
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+-- Set Viewport for camera.
+-- @function [parent=#Camera] setViewport 
+-- @param self
+-- @param #cc.experimental::Viewport vp
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+--  init camera 
+-- @function [parent=#Camera] initDefault 
+-- @param self
+-- @return bool#bool ret (return value: bool)
         
 --------------------------------
 -- get & set Camera flag
@@ -55,19 +93,6 @@
 -- @return int#int ret (return value: int)
         
 --------------------------------
---  init camera 
--- @function [parent=#Camera] initDefault 
--- @param self
--- @return bool#bool ret (return value: bool)
-        
---------------------------------
--- 
--- @function [parent=#Camera] project 
--- @param self
--- @param #vec3_table src
--- @return vec2_table#vec2_table ret (return value: vec2_table)
-        
---------------------------------
 -- 
 -- @function [parent=#Camera] initOrthographic 
 -- @param self
@@ -78,21 +103,10 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- Get object depth towards camera
--- @function [parent=#Camera] getDepthInView 
+-- get rendered order
+-- @function [parent=#Camera] getRenderOrder 
 -- @param self
--- @param #mat4_table transform
--- @return float#float ret (return value: float)
-        
---------------------------------
--- Make Camera looks at target<br>
--- param target The target camera is point at<br>
--- param up The up vector, usually it's Y axis
--- @function [parent=#Camera] lookAt 
--- @param self
--- @param #vec3_table target
--- @param #vec3_table up
--- @return Camera#Camera self (return value: cc.Camera)
+-- @return int#int ret (return value: int)
         
 --------------------------------
 -- Is this aabb visible in frustum
@@ -102,6 +116,47 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
+-- set depth, camera with larger depth is drawn on top of camera with smaller depth, the depth of camera with CameraFlag::DEFAULT is 0, user defined camera is -1 by default
+-- @function [parent=#Camera] setDepth 
+-- @param self
+-- @param #char depth
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+-- Set the scene,this method shall not be invoke manually
+-- @function [parent=#Camera] setScene 
+-- @param self
+-- @param #cc.Scene scene
+-- @return Camera#Camera self (return value: cc.Camera)
+        
+--------------------------------
+-- 
+-- @function [parent=#Camera] projectGL 
+-- @param self
+-- @param #vec3_table src
+-- @return vec2_table#vec2_table ret (return value: vec2_table)
+        
+--------------------------------
+-- Gets the camera's view matrix.<br>
+-- return The camera view matrix.
+-- @function [parent=#Camera] getViewMatrix 
+-- @param self
+-- @return mat4_table#mat4_table ret (return value: mat4_table)
+        
+--------------------------------
+-- Get the frustum's near plane.
+-- @function [parent=#Camera] getNearPlane 
+-- @param self
+-- @return float#float ret (return value: float)
+        
+--------------------------------
+-- 
+-- @function [parent=#Camera] project 
+-- @param self
+-- @param #vec3_table src
+-- @return vec2_table#vec2_table ret (return value: vec2_table)
+        
+--------------------------------
 -- 
 -- @function [parent=#Camera] setCameraFlag 
 -- @param self
@@ -109,31 +164,53 @@
 -- @return Camera#Camera self (return value: cc.Camera)
         
 --------------------------------
+-- Get the frustum's far plane.
+-- @function [parent=#Camera] getFarPlane 
+-- @param self
+-- @return float#float ret (return value: float)
+        
+--------------------------------
 -- 
--- @function [parent=#Camera] clearBackground 
+-- @function [parent=#Camera] applyFrameBufferObject 
 -- @param self
--- @param #float depth
 -- @return Camera#Camera self (return value: cc.Camera)
         
 --------------------------------
--- set additional matrix for the projection matrix, it multiplys mat to projection matrix when called, used by WP8
--- @function [parent=#Camera] setAdditionalProjection 
+-- Set FBO, which will attacha several render target for the rendered result.
+-- @function [parent=#Camera] setFrameBufferObject 
 -- @param self
--- @param #mat4_table mat
+-- @param #cc.experimental::FrameBuffer fbo
 -- @return Camera#Camera self (return value: cc.Camera)
         
 --------------------------------
--- get depth, camera with larger depth is drawn on top of camera with smaller depth, the depth of camera with CameraFlag::DEFAULT is 0, user defined camera is -1 by default
--- @function [parent=#Camera] getDepth 
+-- 
+-- @function [parent=#Camera] initPerspective 
 -- @param self
--- @return int#int ret (return value: int)
+-- @param #float fieldOfView
+-- @param #float aspectRatio
+-- @param #float nearPlane
+-- @param #float farPlane
+-- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- set depth, camera with larger depth is drawn on top of camera with smaller depth, the depth of camera with CameraFlag::DEFAULT is 0, user defined camera is -1 by default
--- @function [parent=#Camera] setDepth 
+-- Creates an orthographic camera.<br>
+-- param zoomX The zoom factor along the X-axis of the orthographic projection (the width of the ortho projection).<br>
+-- param zoomY The zoom factor along the Y-axis of the orthographic projection (the height of the ortho projection).<br>
+-- param nearPlane The near plane distance.<br>
+-- param farPlane The far plane distance.
+-- @function [parent=#Camera] createOrthographic 
 -- @param self
--- @param #int depth
--- @return Camera#Camera self (return value: cc.Camera)
+-- @param #float zoomX
+-- @param #float zoomY
+-- @param #float nearPlane
+-- @param #float farPlane
+-- @return Camera#Camera ret (return value: cc.Camera)
+        
+--------------------------------
+-- Get the visiting camera , the visiting camera shall be set on Scene::render
+-- @function [parent=#Camera] getVisitingCamera 
+-- @param self
+-- @return Camera#Camera ret (return value: cc.Camera)
         
 --------------------------------
 --  create default camera, the camera type depends on Director::getProjection, the depth of the default camera is 0 
@@ -156,28 +233,21 @@
 -- @return Camera#Camera ret (return value: cc.Camera)
         
 --------------------------------
--- Creates an orthographic camera.<br>
--- param zoomX The zoom factor along the X-axis of the orthographic projection (the width of the ortho projection).<br>
--- param zoomY The zoom factor along the Y-axis of the orthographic projection (the height of the ortho projection).<br>
--- param nearPlane The near plane distance.<br>
--- param farPlane The far plane distance.
--- @function [parent=#Camera] createOrthographic 
+-- 
+-- @function [parent=#Camera] getDefaultViewport 
 -- @param self
--- @param #float zoomX
--- @param #float zoomY
--- @param #float nearPlane
--- @param #float farPlane
--- @return Camera#Camera ret (return value: cc.Camera)
+-- @return experimental::Viewport#experimental::Viewport ret (return value: cc.experimental::Viewport)
+        
+--------------------------------
+-- 
+-- @function [parent=#Camera] setDefaultViewport 
+-- @param self
+-- @param #cc.experimental::Viewport vp
+-- @return Camera#Camera self (return value: cc.Camera)
         
 --------------------------------
 -- Get the default camera of the current running scene.
 -- @function [parent=#Camera] getDefaultCamera 
--- @param self
--- @return Camera#Camera ret (return value: cc.Camera)
-        
---------------------------------
--- Get the visiting camera , the visiting camera shall be set on Scene::render
--- @function [parent=#Camera] getVisitingCamera 
 -- @param self
 -- @return Camera#Camera ret (return value: cc.Camera)
         

@@ -430,6 +430,13 @@ bool UIButtonTest_Title::init()
         text->setOpacity(50);
         text->setName("text");
 
+        auto button2 = Button::create("cocosui/backtotopnormal.png", "cocosui/backtotoppressed.png");
+        button2->setTitleFontName("fonts/helvetica-32.fnt");
+        button2->setTitleText("BMFont");
+        //the change of font size will take no effect.
+        button2->setTitleFontSize(30);
+        button2->setPosition(Vec2(button->getPosition() + Vec2(50,-80)));
+        this->addChild(button2);
 
         _uiLayer->addChild(text);
 
@@ -1002,6 +1009,8 @@ bool UIButtonDisableDefaultTest::init()
         button->setZoomScale(0.4f);
         button->setPressedActionEnabled(true);
         button->setBright(false);
+        button->setScale9Enabled(true);
+        button->setCapInsets(Rect(3,3,5,5));
         button->addClickEventListener([=](Ref*){
             button->setBright(true);
         });

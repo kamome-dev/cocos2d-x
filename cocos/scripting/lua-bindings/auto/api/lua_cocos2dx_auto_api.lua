@@ -242,6 +242,11 @@
 
 
 --------------------------------------------------------
+-- the cc Properties
+-- @field [parent=#cc] Properties#Properties Properties preloaded module
+
+
+--------------------------------------------------------
 -- the cc UserDefault
 -- @field [parent=#cc] UserDefault#UserDefault UserDefault preloaded module
 
@@ -927,13 +932,23 @@
 
 
 --------------------------------------------------------
--- the cc Sprite
--- @field [parent=#cc] Sprite#Sprite Sprite preloaded module
+-- the cc Image
+-- @field [parent=#cc] Image#Image Image preloaded module
 
 
 --------------------------------------------------------
--- the cc Image
--- @field [parent=#cc] Image#Image Image preloaded module
+-- the cc PolygonInfo
+-- @field [parent=#cc] PolygonInfo#PolygonInfo PolygonInfo preloaded module
+
+
+--------------------------------------------------------
+-- the cc AutoPolygon
+-- @field [parent=#cc] AutoPolygon#AutoPolygon AutoPolygon preloaded module
+
+
+--------------------------------------------------------
+-- the cc Sprite
+-- @field [parent=#cc] Sprite#Sprite Sprite preloaded module
 
 
 --------------------------------------------------------
@@ -1182,6 +1197,26 @@
 
 
 --------------------------------------------------------
+-- the cc RenderState
+-- @field [parent=#cc] RenderState#RenderState RenderState preloaded module
+
+
+--------------------------------------------------------
+-- the cc Pass
+-- @field [parent=#cc] Pass#Pass Pass preloaded module
+
+
+--------------------------------------------------------
+-- the cc Technique
+-- @field [parent=#cc] Technique#Technique Technique preloaded module
+
+
+--------------------------------------------------------
+-- the cc Material
+-- @field [parent=#cc] Material#Material Material preloaded module
+
+
+--------------------------------------------------------
 -- the cc TextureCache
 -- @field [parent=#cc] TextureCache#TextureCache TextureCache preloaded module
 
@@ -1254,11 +1289,6 @@
 --------------------------------------------------------
 -- the cc Component
 -- @field [parent=#cc] Component#Component Component preloaded module
-
-
---------------------------------------------------------
--- the cc SpritePolygonCache
--- @field [parent=#cc] SpritePolygonCache#SpritePolygonCache SpritePolygonCache preloaded module
 
 
 return nil

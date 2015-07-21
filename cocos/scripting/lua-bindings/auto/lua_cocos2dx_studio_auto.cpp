@@ -5,7 +5,6 @@
 #include "LuaBasicConversions.h"
 
 
-
 int lua_cocos2dx_studio_ActionFrame_getAction(lua_State* tolua_S)
 {
     int argc = 0;
@@ -34,7 +33,7 @@ int lua_cocos2dx_studio_ActionFrame_getAction(lua_State* tolua_S)
 
             if (!ok) { break; }
             cocostudio::ActionFrame* arg1;
-            ok &= luaval_to_object<cocostudio::ActionFrame>(tolua_S, 3, "ccs.ActionFrame",&arg1);
+            ok &= luaval_to_object<cocostudio::ActionFrame>(tolua_S, 3, "ccs.ActionFrame",&arg1, "ccs.ActionFrame:getAction");
 
             if (!ok) { break; }
             cocos2d::ActionInterval* ret = cobj->getAction(arg0, arg1);
@@ -1161,7 +1160,7 @@ int lua_cocos2dx_studio_ActionRotationFrame_getAction(lua_State* tolua_S)
 
             if (!ok) { break; }
             cocostudio::ActionFrame* arg1;
-            ok &= luaval_to_object<cocostudio::ActionFrame>(tolua_S, 3, "ccs.ActionFrame",&arg1);
+            ok &= luaval_to_object<cocostudio::ActionFrame>(tolua_S, 3, "ccs.ActionFrame",&arg1, "ccs.ActionRotationFrame:getAction");
 
             if (!ok) { break; }
             cocos2d::ActionInterval* ret = cobj->getAction(arg0, arg1);
@@ -2075,7 +2074,7 @@ int lua_cocos2dx_studio_ActionObject_play(lua_State* tolua_S)
     do{
         if (argc == 1) {
             cocos2d::CallFunc* arg0;
-            ok &= luaval_to_object<cocos2d::CallFunc>(tolua_S, 2, "cc.CallFunc",&arg0);
+            ok &= luaval_to_object<cocos2d::CallFunc>(tolua_S, 2, "cc.CallFunc",&arg0, "ccs.ActionObject:play");
 
             if (!ok) { break; }
             cobj->play(arg0);
@@ -2179,7 +2178,7 @@ int lua_cocos2dx_studio_ActionObject_removeActionNode(lua_State* tolua_S)
     {
         cocostudio::ActionNode* arg0;
 
-        ok &= luaval_to_object<cocostudio::ActionNode>(tolua_S, 2, "ccs.ActionNode",&arg0);
+        ok &= luaval_to_object<cocostudio::ActionNode>(tolua_S, 2, "ccs.ActionNode",&arg0, "ccs.ActionObject:removeActionNode");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionObject_removeActionNode'", nullptr);
@@ -2276,7 +2275,7 @@ int lua_cocos2dx_studio_ActionObject_addActionNode(lua_State* tolua_S)
     {
         cocostudio::ActionNode* arg0;
 
-        ok &= luaval_to_object<cocostudio::ActionNode>(tolua_S, 2, "ccs.ActionNode",&arg0);
+        ok &= luaval_to_object<cocostudio::ActionNode>(tolua_S, 2, "ccs.ActionNode",&arg0, "ccs.ActionObject:addActionNode");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionObject_addActionNode'", nullptr);
@@ -2752,7 +2751,7 @@ int lua_cocos2dx_studio_ActionManagerEx_playActionByName(lua_State* tolua_S)
 
             if (!ok) { break; }
             cocos2d::CallFunc* arg2;
-            ok &= luaval_to_object<cocos2d::CallFunc>(tolua_S, 4, "cc.CallFunc",&arg2);
+            ok &= luaval_to_object<cocos2d::CallFunc>(tolua_S, 4, "cc.CallFunc",&arg2, "ccs.ActionManagerEx:playActionByName");
 
             if (!ok) { break; }
             cocostudio::ActionObject* ret = cobj->playActionByName(arg0, arg1, arg2);
@@ -3148,7 +3147,7 @@ int lua_cocos2dx_studio_DisplayData_copy(lua_State* tolua_S)
     {
         cocostudio::DisplayData* arg0;
 
-        ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0);
+        ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0, "ccs.DisplayData:copy");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_DisplayData_copy'", nullptr);
@@ -3328,7 +3327,7 @@ int lua_cocos2dx_studio_SpriteDisplayData_copy(lua_State* tolua_S)
     {
         cocostudio::DisplayData* arg0;
 
-        ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0);
+        ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0, "ccs.SpriteDisplayData:copy");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_SpriteDisplayData_copy'", nullptr);
@@ -3752,7 +3751,7 @@ int lua_cocos2dx_studio_BoneData_addDisplayData(lua_State* tolua_S)
     {
         cocostudio::DisplayData* arg0;
 
-        ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0);
+        ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0, "ccs.BoneData:addDisplayData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_BoneData_addDisplayData'", nullptr);
@@ -3897,7 +3896,7 @@ int lua_cocos2dx_studio_ArmatureData_addBoneData(lua_State* tolua_S)
     {
         cocostudio::BoneData* arg0;
 
-        ok &= luaval_to_object<cocostudio::BoneData>(tolua_S, 2, "ccs.BoneData",&arg0);
+        ok &= luaval_to_object<cocostudio::BoneData>(tolua_S, 2, "ccs.BoneData",&arg0, "ccs.ArmatureData:addBoneData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureData_addBoneData'", nullptr);
@@ -4139,7 +4138,7 @@ int lua_cocos2dx_studio_FrameData_copy(lua_State* tolua_S)
     {
         const cocostudio::BaseData* arg0;
 
-        ok &= luaval_to_object<const cocostudio::BaseData>(tolua_S, 2, "ccs.BaseData",&arg0);
+        ok &= luaval_to_object<const cocostudio::BaseData>(tolua_S, 2, "ccs.BaseData",&arg0, "ccs.FrameData:copy");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_FrameData_copy'", nullptr);
@@ -4379,7 +4378,7 @@ int lua_cocos2dx_studio_MovementBoneData_addFrameData(lua_State* tolua_S)
     {
         cocostudio::FrameData* arg0;
 
-        ok &= luaval_to_object<cocostudio::FrameData>(tolua_S, 2, "ccs.FrameData",&arg0);
+        ok &= luaval_to_object<cocostudio::FrameData>(tolua_S, 2, "ccs.FrameData",&arg0, "ccs.MovementBoneData:addFrameData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_MovementBoneData_addFrameData'", nullptr);
@@ -4574,7 +4573,7 @@ int lua_cocos2dx_studio_MovementData_addMovementBoneData(lua_State* tolua_S)
     {
         cocostudio::MovementBoneData* arg0;
 
-        ok &= luaval_to_object<cocostudio::MovementBoneData>(tolua_S, 2, "ccs.MovementBoneData",&arg0);
+        ok &= luaval_to_object<cocostudio::MovementBoneData>(tolua_S, 2, "ccs.MovementBoneData",&arg0, "ccs.MovementData:addMovementBoneData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_MovementData_addMovementBoneData'", nullptr);
@@ -4815,7 +4814,7 @@ int lua_cocos2dx_studio_AnimationData_addMovement(lua_State* tolua_S)
     {
         cocostudio::MovementData* arg0;
 
-        ok &= luaval_to_object<cocostudio::MovementData>(tolua_S, 2, "ccs.MovementData",&arg0);
+        ok &= luaval_to_object<cocostudio::MovementData>(tolua_S, 2, "ccs.MovementData",&arg0, "ccs.AnimationData:addMovement");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_AnimationData_addMovement'", nullptr);
@@ -5248,7 +5247,7 @@ int lua_cocos2dx_studio_TextureData_addContourData(lua_State* tolua_S)
     {
         cocostudio::ContourData* arg0;
 
-        ok &= luaval_to_object<cocostudio::ContourData>(tolua_S, 2, "ccs.ContourData",&arg0);
+        ok &= luaval_to_object<cocostudio::ContourData>(tolua_S, 2, "ccs.ContourData",&arg0, "ccs.TextureData:addContourData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_TextureData_addContourData'", nullptr);
@@ -5494,7 +5493,7 @@ int lua_cocos2dx_studio_Tween_play(lua_State* tolua_S)
         int arg3;
         int arg4;
 
-        ok &= luaval_to_object<cocostudio::MovementBoneData>(tolua_S, 2, "ccs.MovementBoneData",&arg0);
+        ok &= luaval_to_object<cocostudio::MovementBoneData>(tolua_S, 2, "ccs.MovementBoneData",&arg0, "ccs.Tween:play");
 
         ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1, "ccs.Tween:play");
 
@@ -5602,7 +5601,7 @@ int lua_cocos2dx_studio_Tween_init(lua_State* tolua_S)
     {
         cocostudio::Bone* arg0;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Tween:init");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Tween_init'", nullptr);
@@ -5652,7 +5651,7 @@ int lua_cocos2dx_studio_Tween_setAnimation(lua_State* tolua_S)
     {
         cocostudio::ArmatureAnimation* arg0;
 
-        ok &= luaval_to_object<cocostudio::ArmatureAnimation>(tolua_S, 2, "ccs.ArmatureAnimation",&arg0);
+        ok &= luaval_to_object<cocostudio::ArmatureAnimation>(tolua_S, 2, "ccs.ArmatureAnimation",&arg0, "ccs.Tween:setAnimation");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Tween_setAnimation'", nullptr);
@@ -5690,7 +5689,7 @@ int lua_cocos2dx_studio_Tween_create(lua_State* tolua_S)
     if (argc == 1)
     {
         cocostudio::Bone* arg0;
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Tween:create");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Tween_create'", nullptr);
@@ -6043,7 +6042,7 @@ int lua_cocos2dx_studio_DisplayManager_init(lua_State* tolua_S)
     {
         cocostudio::Bone* arg0;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.DisplayManager:init");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_DisplayManager_init'", nullptr);
@@ -6181,7 +6180,7 @@ int lua_cocos2dx_studio_DisplayManager_addDisplay(lua_State* tolua_S)
     do{
         if (argc == 2) {
             cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.DisplayManager:addDisplay");
 
             if (!ok) { break; }
             int arg1;
@@ -6197,7 +6196,7 @@ int lua_cocos2dx_studio_DisplayManager_addDisplay(lua_State* tolua_S)
     do{
         if (argc == 2) {
             cocostudio::DisplayData* arg0;
-            ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0);
+            ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0, "ccs.DisplayManager:addDisplay");
 
             if (!ok) { break; }
             int arg1;
@@ -6688,7 +6687,7 @@ int lua_cocos2dx_studio_DisplayManager_create(lua_State* tolua_S)
     if (argc == 1)
     {
         cocostudio::Bone* arg0;
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.DisplayManager:create");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_DisplayManager_create'", nullptr);
@@ -7097,7 +7096,7 @@ int lua_cocos2dx_studio_Bone_addChildBone(lua_State* tolua_S)
     {
         cocostudio::Bone* arg0;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Bone:addChildBone");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Bone_addChildBone'", nullptr);
@@ -7482,7 +7481,7 @@ int lua_cocos2dx_studio_Bone_setBoneData(lua_State* tolua_S)
     {
         cocostudio::BoneData* arg0;
 
-        ok &= luaval_to_object<cocostudio::BoneData>(tolua_S, 2, "ccs.BoneData",&arg0);
+        ok &= luaval_to_object<cocostudio::BoneData>(tolua_S, 2, "ccs.BoneData",&arg0, "ccs.Bone:setBoneData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Bone_setBoneData'", nullptr);
@@ -7582,7 +7581,7 @@ int lua_cocos2dx_studio_Bone_setParentBone(lua_State* tolua_S)
     {
         cocostudio::Bone* arg0;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Bone:setParentBone");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Bone_setParentBone'", nullptr);
@@ -7626,7 +7625,7 @@ int lua_cocos2dx_studio_Bone_addDisplay(lua_State* tolua_S)
     do{
         if (argc == 2) {
             cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.Bone:addDisplay");
 
             if (!ok) { break; }
             int arg1;
@@ -7642,7 +7641,7 @@ int lua_cocos2dx_studio_Bone_addDisplay(lua_State* tolua_S)
     do{
         if (argc == 2) {
             cocostudio::DisplayData* arg0;
-            ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0);
+            ok &= luaval_to_object<cocostudio::DisplayData>(tolua_S, 2, "ccs.DisplayData",&arg0, "ccs.Bone:addDisplay");
 
             if (!ok) { break; }
             int arg1;
@@ -8039,7 +8038,7 @@ int lua_cocos2dx_studio_Bone_setArmature(lua_State* tolua_S)
     {
         cocostudio::Armature* arg0;
 
-        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0);
+        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0, "ccs.Bone:setArmature");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Bone_setArmature'", nullptr);
@@ -8140,7 +8139,7 @@ int lua_cocos2dx_studio_Bone_removeChildBone(lua_State* tolua_S)
         cocostudio::Bone* arg0;
         bool arg1;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Bone:removeChildBone");
 
         ok &= luaval_to_boolean(tolua_S, 3,&arg1, "ccs.Bone:removeChildBone");
         if(!ok)
@@ -8192,7 +8191,7 @@ int lua_cocos2dx_studio_Bone_setChildArmature(lua_State* tolua_S)
     {
         cocostudio::Armature* arg0;
 
-        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0);
+        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0, "ccs.Bone:setChildArmature");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Bone_setChildArmature'", nullptr);
@@ -8891,7 +8890,7 @@ int lua_cocos2dx_studio_ArmatureAnimation_setAnimationData(lua_State* tolua_S)
     {
         cocostudio::AnimationData* arg0;
 
-        ok &= luaval_to_object<cocostudio::AnimationData>(tolua_S, 2, "ccs.AnimationData",&arg0);
+        ok &= luaval_to_object<cocostudio::AnimationData>(tolua_S, 2, "ccs.AnimationData",&arg0, "ccs.ArmatureAnimation:setAnimationData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureAnimation_setAnimationData'", nullptr);
@@ -9088,7 +9087,7 @@ int lua_cocos2dx_studio_ArmatureAnimation_init(lua_State* tolua_S)
     {
         cocostudio::Armature* arg0;
 
-        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0);
+        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0, "ccs.ArmatureAnimation:init");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureAnimation_init'", nullptr);
@@ -9394,7 +9393,7 @@ int lua_cocos2dx_studio_ArmatureAnimation_create(lua_State* tolua_S)
     if (argc == 1)
     {
         cocostudio::Armature* arg0;
-        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0);
+        ok &= luaval_to_object<cocostudio::Armature>(tolua_S, 2, "ccs.Armature",&arg0, "ccs.ArmatureAnimation:create");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureAnimation_create'", nullptr);
@@ -9613,7 +9612,7 @@ int lua_cocos2dx_studio_ArmatureDataManager_addArmatureData(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.ArmatureDataManager:addArmatureData");
 
-        ok &= luaval_to_object<cocostudio::ArmatureData>(tolua_S, 3, "ccs.ArmatureData",&arg1);
+        ok &= luaval_to_object<cocostudio::ArmatureData>(tolua_S, 3, "ccs.ArmatureData",&arg1, "ccs.ArmatureDataManager:addArmatureData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureDataManager_addArmatureData'", nullptr);
@@ -9631,7 +9630,7 @@ int lua_cocos2dx_studio_ArmatureDataManager_addArmatureData(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.ArmatureDataManager:addArmatureData");
 
-        ok &= luaval_to_object<cocostudio::ArmatureData>(tolua_S, 3, "ccs.ArmatureData",&arg1);
+        ok &= luaval_to_object<cocostudio::ArmatureData>(tolua_S, 3, "ccs.ArmatureData",&arg1, "ccs.ArmatureDataManager:addArmatureData");
 
         ok &= luaval_to_std_string(tolua_S, 4,&arg2, "ccs.ArmatureDataManager:addArmatureData");
         if(!ok)
@@ -9996,7 +9995,7 @@ int lua_cocos2dx_studio_ArmatureDataManager_addAnimationData(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.ArmatureDataManager:addAnimationData");
 
-        ok &= luaval_to_object<cocostudio::AnimationData>(tolua_S, 3, "ccs.AnimationData",&arg1);
+        ok &= luaval_to_object<cocostudio::AnimationData>(tolua_S, 3, "ccs.AnimationData",&arg1, "ccs.ArmatureDataManager:addAnimationData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureDataManager_addAnimationData'", nullptr);
@@ -10014,7 +10013,7 @@ int lua_cocos2dx_studio_ArmatureDataManager_addAnimationData(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.ArmatureDataManager:addAnimationData");
 
-        ok &= luaval_to_object<cocostudio::AnimationData>(tolua_S, 3, "ccs.AnimationData",&arg1);
+        ok &= luaval_to_object<cocostudio::AnimationData>(tolua_S, 3, "ccs.AnimationData",&arg1, "ccs.ArmatureDataManager:addAnimationData");
 
         ok &= luaval_to_std_string(tolua_S, 4,&arg2, "ccs.ArmatureDataManager:addAnimationData");
         if(!ok)
@@ -10263,7 +10262,7 @@ int lua_cocos2dx_studio_ArmatureDataManager_addTextureData(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.ArmatureDataManager:addTextureData");
 
-        ok &= luaval_to_object<cocostudio::TextureData>(tolua_S, 3, "ccs.TextureData",&arg1);
+        ok &= luaval_to_object<cocostudio::TextureData>(tolua_S, 3, "ccs.TextureData",&arg1, "ccs.ArmatureDataManager:addTextureData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ArmatureDataManager_addTextureData'", nullptr);
@@ -10281,7 +10280,7 @@ int lua_cocos2dx_studio_ArmatureDataManager_addTextureData(lua_State* tolua_S)
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.ArmatureDataManager:addTextureData");
 
-        ok &= luaval_to_object<cocostudio::TextureData>(tolua_S, 3, "ccs.TextureData",&arg1);
+        ok &= luaval_to_object<cocostudio::TextureData>(tolua_S, 3, "ccs.TextureData",&arg1, "ccs.ArmatureDataManager:addTextureData");
 
         ok &= luaval_to_std_string(tolua_S, 4,&arg2, "ccs.ArmatureDataManager:addTextureData");
         if(!ok)
@@ -10610,7 +10609,7 @@ int lua_cocos2dx_studio_Armature_changeBoneParent(lua_State* tolua_S)
         cocostudio::Bone* arg0;
         std::string arg1;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Armature:changeBoneParent");
 
         ok &= luaval_to_std_string(tolua_S, 3,&arg1, "ccs.Armature:changeBoneParent");
         if(!ok)
@@ -10662,7 +10661,7 @@ int lua_cocos2dx_studio_Armature_setAnimation(lua_State* tolua_S)
     {
         cocostudio::ArmatureAnimation* arg0;
 
-        ok &= luaval_to_object<cocostudio::ArmatureAnimation>(tolua_S, 2, "ccs.ArmatureAnimation",&arg0);
+        ok &= luaval_to_object<cocostudio::ArmatureAnimation>(tolua_S, 2, "ccs.ArmatureAnimation",&arg0, "ccs.Armature:setAnimation");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Armature_setAnimation'", nullptr);
@@ -10957,7 +10956,7 @@ int lua_cocos2dx_studio_Armature_removeBone(lua_State* tolua_S)
         cocostudio::Bone* arg0;
         bool arg1;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Armature:removeBone");
 
         ok &= luaval_to_boolean(tolua_S, 3,&arg1, "ccs.Armature:removeBone");
         if(!ok)
@@ -11054,7 +11053,7 @@ int lua_cocos2dx_studio_Armature_init(lua_State* tolua_S)
 
             if (!ok) { break; }
             cocostudio::Bone* arg1;
-            ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 3, "ccs.Bone",&arg1);
+            ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 3, "ccs.Bone",&arg1, "ccs.Armature:init");
 
             if (!ok) { break; }
             bool ret = cobj->init(arg0, arg1);
@@ -11115,7 +11114,7 @@ int lua_cocos2dx_studio_Armature_setParentBone(lua_State* tolua_S)
     {
         cocostudio::Bone* arg0;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Armature:setParentBone");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Armature_setParentBone'", nullptr);
@@ -11165,7 +11164,7 @@ int lua_cocos2dx_studio_Armature_setBatchNode(lua_State* tolua_S)
     {
         cocostudio::BatchNode* arg0;
 
-        ok &= luaval_to_object<cocostudio::BatchNode>(tolua_S, 2, "ccs.BatchNode",&arg0);
+        ok &= luaval_to_object<cocostudio::BatchNode>(tolua_S, 2, "ccs.BatchNode",&arg0, "ccs.Armature:setBatchNode");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Armature_setBatchNode'", nullptr);
@@ -11262,7 +11261,7 @@ int lua_cocos2dx_studio_Armature_setArmatureData(lua_State* tolua_S)
     {
         cocostudio::ArmatureData* arg0;
 
-        ok &= luaval_to_object<cocostudio::ArmatureData>(tolua_S, 2, "ccs.ArmatureData",&arg0);
+        ok &= luaval_to_object<cocostudio::ArmatureData>(tolua_S, 2, "ccs.ArmatureData",&arg0, "ccs.Armature:setArmatureData");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Armature_setArmatureData'", nullptr);
@@ -11313,7 +11312,7 @@ int lua_cocos2dx_studio_Armature_addBone(lua_State* tolua_S)
         cocostudio::Bone* arg0;
         std::string arg1;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Armature:addBone");
 
         ok &= luaval_to_std_string(tolua_S, 3,&arg1, "ccs.Armature:addBone");
         if(!ok)
@@ -11665,7 +11664,7 @@ int lua_cocos2dx_studio_Armature_create(lua_State* tolua_S)
             ok &= luaval_to_std_string(tolua_S, 2,&arg0, "ccs.Armature:create");
             if (!ok) { break; }
             cocostudio::Bone* arg1;
-            ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 3, "ccs.Bone",&arg1);
+            ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 3, "ccs.Bone",&arg1, "ccs.Armature:create");
             if (!ok) { break; }
             cocostudio::Armature* ret = cocostudio::Armature::create(arg0, arg1);
             object_to_luaval<cocostudio::Armature>(tolua_S, "ccs.Armature",(cocostudio::Armature*)ret);
@@ -11979,7 +11978,7 @@ int lua_cocos2dx_studio_Skin_setBone(lua_State* tolua_S)
     {
         cocostudio::Bone* arg0;
 
-        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0);
+        ok &= luaval_to_object<cocostudio::Bone>(tolua_S, 2, "ccs.Bone",&arg0, "ccs.Skin:setBone");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Skin_setBone'", nullptr);
@@ -14340,7 +14339,7 @@ int lua_cocos2dx_studio_ComRender_setNode(lua_State* tolua_S)
     {
         cocos2d::Node* arg0;
 
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.ComRender:setNode");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ComRender_setNode'", nullptr);
@@ -14426,7 +14425,7 @@ int lua_cocos2dx_studio_ComRender_create(lua_State* tolua_S)
         if (argc == 2)
         {
             cocos2d::Node* arg0;
-            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+            ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.ComRender:create");
             if (!ok) { break; }
             const char* arg1;
             std::string arg1_tmp; ok &= luaval_to_std_string(tolua_S, 3, &arg1_tmp, "ccs.ComRender:create"); arg1 = arg1_tmp.c_str();
@@ -15793,6 +15792,56 @@ int lua_cocos2dx_studio_Frame_clone(lua_State* tolua_S)
 
     return 0;
 }
+int lua_cocos2dx_studio_Frame_setTweenType(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocostudio::timeline::Frame* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"ccs.Frame",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocostudio::timeline::Frame*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_studio_Frame_setTweenType'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        cocos2d::tweenfunc::TweenType arg0;
+
+        ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0, "ccs.Frame:setTweenType");
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Frame_setTweenType'", nullptr);
+            return 0;
+        }
+        cobj->setTweenType(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "ccs.Frame:setTweenType",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_studio_Frame_setTweenType'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_cocos2dx_studio_Frame_setNode(lua_State* tolua_S)
 {
     int argc = 0;
@@ -15823,7 +15872,7 @@ int lua_cocos2dx_studio_Frame_setNode(lua_State* tolua_S)
     {
         cocos2d::Node* arg0;
 
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.Frame:setNode");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Frame_setNode'", nullptr);
@@ -15873,7 +15922,7 @@ int lua_cocos2dx_studio_Frame_setTimeline(lua_State* tolua_S)
     {
         cocostudio::timeline::Timeline* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::Timeline>(tolua_S, 2, "ccs.Timeline",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::Timeline>(tolua_S, 2, "ccs.Timeline",&arg0, "ccs.Frame:setTimeline");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Frame_setTimeline'", nullptr);
@@ -15936,6 +15985,53 @@ int lua_cocos2dx_studio_Frame_isEnterWhenPassed(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_studio_Frame_isEnterWhenPassed'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_cocos2dx_studio_Frame_getTweenType(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocostudio::timeline::Frame* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"ccs.Frame",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocostudio::timeline::Frame*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_studio_Frame_getTweenType'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Frame_getTweenType'", nullptr);
+            return 0;
+        }
+        int ret = (int)cobj->getTweenType();
+        tolua_pushnumber(tolua_S,(lua_Number)ret);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "ccs.Frame:getTweenType",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_studio_Frame_getTweenType'.",&tolua_err);
 #endif
 
     return 0;
@@ -16388,9 +16484,11 @@ int lua_register_cocos2dx_studio_Frame(lua_State* tolua_S)
 
     tolua_beginmodule(tolua_S,"Frame");
         tolua_function(tolua_S,"clone",lua_cocos2dx_studio_Frame_clone);
+        tolua_function(tolua_S,"setTweenType",lua_cocos2dx_studio_Frame_setTweenType);
         tolua_function(tolua_S,"setNode",lua_cocos2dx_studio_Frame_setNode);
         tolua_function(tolua_S,"setTimeline",lua_cocos2dx_studio_Frame_setTimeline);
         tolua_function(tolua_S,"isEnterWhenPassed",lua_cocos2dx_studio_Frame_isEnterWhenPassed);
+        tolua_function(tolua_S,"getTweenType",lua_cocos2dx_studio_Frame_getTweenType);
         tolua_function(tolua_S,"getEasingParams",lua_cocos2dx_studio_Frame_getEasingParams);
         tolua_function(tolua_S,"setEasingParams",lua_cocos2dx_studio_Frame_setEasingParams);
         tolua_function(tolua_S,"getFrameIndex",lua_cocos2dx_studio_Frame_getFrameIndex);
@@ -20003,7 +20101,7 @@ int lua_cocos2dx_studio_Timeline_setNode(lua_State* tolua_S)
     {
         cocos2d::Node* arg0;
 
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.Timeline:setNode");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Timeline_setNode'", nullptr);
@@ -20101,7 +20199,7 @@ int lua_cocos2dx_studio_Timeline_insertFrame(lua_State* tolua_S)
         cocostudio::timeline::Frame* arg0;
         int arg1;
 
-        ok &= luaval_to_object<cocostudio::timeline::Frame>(tolua_S, 2, "ccs.Frame",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::Frame>(tolua_S, 2, "ccs.Frame",&arg0, "ccs.Timeline:insertFrame");
 
         ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1, "ccs.Timeline:insertFrame");
         if(!ok)
@@ -20203,7 +20301,7 @@ int lua_cocos2dx_studio_Timeline_addFrame(lua_State* tolua_S)
     {
         cocostudio::timeline::Frame* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::Frame>(tolua_S, 2, "ccs.Frame",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::Frame>(tolua_S, 2, "ccs.Frame",&arg0, "ccs.Timeline:addFrame");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Timeline_addFrame'", nullptr);
@@ -20394,7 +20492,7 @@ int lua_cocos2dx_studio_Timeline_removeFrame(lua_State* tolua_S)
     {
         cocostudio::timeline::Frame* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::Frame>(tolua_S, 2, "ccs.Frame",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::Frame>(tolua_S, 2, "ccs.Frame",&arg0, "ccs.Timeline:removeFrame");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Timeline_removeFrame'", nullptr);
@@ -20444,7 +20542,7 @@ int lua_cocos2dx_studio_Timeline_setActionTimeline(lua_State* tolua_S)
     {
         cocostudio::timeline::ActionTimeline* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 2, "ccs.ActionTimeline",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 2, "ccs.ActionTimeline",&arg0, "ccs.Timeline:setActionTimeline");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_Timeline_setActionTimeline'", nullptr);
@@ -20893,7 +20991,7 @@ int lua_cocos2dx_studio_ActionTimeline_addTimeline(lua_State* tolua_S)
     {
         cocostudio::timeline::Timeline* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::Timeline>(tolua_S, 2, "ccs.Timeline",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::Timeline>(tolua_S, 2, "ccs.Timeline",&arg0, "ccs.ActionTimeline:addTimeline");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionTimeline_addTimeline'", nullptr);
@@ -21131,7 +21229,7 @@ int lua_cocos2dx_studio_ActionTimeline_removeTimeline(lua_State* tolua_S)
     {
         cocostudio::timeline::Timeline* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::Timeline>(tolua_S, 2, "ccs.Timeline",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::Timeline>(tolua_S, 2, "ccs.Timeline",&arg0, "ccs.ActionTimeline:removeTimeline");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionTimeline_removeTimeline'", nullptr);
@@ -22378,7 +22476,7 @@ int lua_cocos2dx_studio_ActionTimelineNode_setActionTimeline(lua_State* tolua_S)
     {
         cocostudio::timeline::ActionTimeline* arg0;
 
-        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 2, "ccs.ActionTimeline",&arg0);
+        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 2, "ccs.ActionTimeline",&arg0, "ccs.ActionTimelineNode:setActionTimeline");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionTimelineNode_setActionTimeline'", nullptr);
@@ -22429,9 +22527,9 @@ int lua_cocos2dx_studio_ActionTimelineNode_init(lua_State* tolua_S)
         cocos2d::Node* arg0;
         cocostudio::timeline::ActionTimeline* arg1;
 
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.ActionTimelineNode:init");
 
-        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 3, "ccs.ActionTimeline",&arg1);
+        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 3, "ccs.ActionTimeline",&arg1, "ccs.ActionTimelineNode:init");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionTimelineNode_init'", nullptr);
@@ -22481,7 +22579,7 @@ int lua_cocos2dx_studio_ActionTimelineNode_setRoot(lua_State* tolua_S)
     {
         cocos2d::Node* arg0;
 
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.ActionTimelineNode:setRoot");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionTimelineNode_setRoot'", nullptr);
@@ -22520,8 +22618,8 @@ int lua_cocos2dx_studio_ActionTimelineNode_create(lua_State* tolua_S)
     {
         cocos2d::Node* arg0;
         cocostudio::timeline::ActionTimeline* arg1;
-        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 3, "ccs.ActionTimeline",&arg1);
+        ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0, "ccs.ActionTimelineNode:create");
+        ok &= luaval_to_object<cocostudio::timeline::ActionTimeline>(tolua_S, 3, "ccs.ActionTimeline",&arg1, "ccs.ActionTimelineNode:create");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_studio_ActionTimelineNode_create'", nullptr);

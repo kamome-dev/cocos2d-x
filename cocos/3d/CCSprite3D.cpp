@@ -352,8 +352,7 @@ Sprite3D* Sprite3D::createSprite3DNode(NodeData* nodedata,ModelData* modeldata,c
         if (modeldata->matrialId == "" && materialdatas.materials.size())
         {
             const NTextureData* textureData = materialdatas.materials[0].getTextureData(NTextureData::Usage::Diffuse);
-            if (!textureData->filename.empty())
-                mesh->setTexture(textureData->filename);
+            mesh->setTexture(textureData->filename);
         }
         else
         {
@@ -361,9 +360,10 @@ Sprite3D* Sprite3D::createSprite3DNode(NodeData* nodedata,ModelData* modeldata,c
             if(materialData)
             {
                 const NTextureData* textureData = materialData->getTextureData(NTextureData::Usage::Diffuse);
-                if(textureData && !textureData->filename.empty())
+                if(textureData)
                 {
-                    auto tex = Director::getInstance()->getTextureCache()->addImage(textureData->filename);
+                    mesh->setTexture(textureData->filename);
+                    auto tex = mesh->getTexture();
                     if(tex)
                     {
                         Texture2D::TexParams texParams;
@@ -372,10 +372,8 @@ Sprite3D* Sprite3D::createSprite3DNode(NodeData* nodedata,ModelData* modeldata,c
                         texParams.wrapS = textureData->wrapS;
                         texParams.wrapT = textureData->wrapT;
                         tex->setTexParameters(texParams);
-                        mesh->setTexture(tex);
                         mesh->_isTransparent = (materialData->getTextureData(NTextureData::Usage::Transparency) != nullptr);
                     }
-
                 }
             }
         }
@@ -418,7 +416,7 @@ void Sprite3D::createAttachSprite3DNode(NodeData* nodedata, const MaterialDatas&
 
 void Sprite3D::setMaterial(Material *material)
 {
-    setMaterial(material, -1);
+    setMaterial(material, -1); 
 }
 
 void Sprite3D::setMaterial(Material *material, int meshIndex)
@@ -506,9 +504,10 @@ void Sprite3D::createNode(NodeData* nodedata, Node* root, const MaterialDatas& m
                         if(materialData)
                         {
                             const NTextureData* textureData = materialData->getTextureData(NTextureData::Usage::Diffuse);
-                            if(textureData && !textureData->filename.empty())
+                            if(textureData)
                             {
-                                auto tex = Director::getInstance()->getTextureCache()->addImage(textureData->filename);
+                                mesh->setTexture(textureData->filename);
+                                auto tex = mesh->getTexture();
                                 if(tex)
                                 {
                                     Texture2D::TexParams texParams;
@@ -517,10 +516,8 @@ void Sprite3D::createNode(NodeData* nodedata, Node* root, const MaterialDatas& m
                                     texParams.wrapS = textureData->wrapS;
                                     texParams.wrapT = textureData->wrapT;
                                     tex->setTexParameters(texParams);
-                                    mesh->setTexture(tex);
                                     mesh->_isTransparent = (materialData->getTextureData(NTextureData::Usage::Transparency) != nullptr);
                                 }
-
                             }
                         }
                     }
@@ -606,8 +603,8 @@ void Sprite3D::setTexture(const std::string& texFile)
 
 void Sprite3D::setTexture(Texture2D* texture)
 {
-    for (auto& state : _meshes) {
-        state->setTexture(texture);
+    for (auto mesh: _meshes) {
+        mesh->setTexture(texture);
     }
 }
 AttachNode* Sprite3D::getAttachNode(const std::string& boneName)
@@ -701,7 +698,7 @@ void Sprite3D::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 {
 #if CC_USE_CULLING
     // camera clipping
-    if(!Camera::getVisitingCamera()->isVisibleInFrustum(&this->getAABB()))
+    if(Camera::getVisitingCamera() && !Camera::getVisitingCamera()->isVisibleInFrustum(&this->getAABB()))
         return;
 #endif
     
@@ -730,7 +727,7 @@ void Sprite3D::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
         }
     }
     
-    for (auto mesh : _meshes)
+    for (auto mesh: _meshes)
     {
         mesh->draw(renderer,
                    _globalZOrder,
@@ -743,25 +740,25 @@ void Sprite3D::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
     }
 }
 
-void Sprite3D::setGLProgramState(GLProgramState *glProgramState)
+void Sprite3D::setGLProgramState(GLProgramState* glProgramState)
 {
     Node::setGLProgramState(glProgramState);
-    for (auto& state : _meshes) {
+    for (auto state : _meshes) {
         state->setGLProgramState(glProgramState);
     }
 }
-void Sprite3D::setGLProgram(GLProgram *glprogram)
+void Sprite3D::setGLProgram(GLProgram* glprogram)
 {
     auto glProgramState = GLProgramState::create(glprogram);
     setGLProgramState(glProgramState);
 }
 
-void Sprite3D::setBlendFunc(const BlendFunc &blendFunc)
+void Sprite3D::setBlendFunc(const BlendFunc& blendFunc)
 {
     if(_blend.src != blendFunc.src || _blend.dst != blendFunc.dst)
     {
         _blend = blendFunc;
-        for(auto& mesh : _meshes)
+        for(auto mesh: _meshes)
         {
             mesh->setBlendFunc(blendFunc);
         }
@@ -776,8 +773,8 @@ const BlendFunc& Sprite3D::getBlendFunc() const
 AABB Sprite3D::getAABBRecursively()
 {
     AABB aabb;
-    const Vector<Node*>& children = getChildren();
-    for (const auto& iter : children)
+    const auto children = getChildren();
+    for (const auto iter: children)
     {
         Sprite3D* child = dynamic_cast<Sprite3D*>(iter);
         if(child)
@@ -882,6 +879,13 @@ MeshSkin* Sprite3D::getSkin() const
     return nullptr;
 }
 
+void Sprite3D::setForce2DQueue(bool force2D)
+{
+    for (const auto &mesh : _meshes) {
+        mesh->setForce2DQueue(force2D);
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 Sprite3DCache* Sprite3DCache::_cacheInstance = nullptr;
 Sprite3DCache* Sprite3DCache::getInstance()
@@ -975,7 +979,10 @@ static GLProgramState* getGLProgramStateForAttribs(MeshVertexData* meshVertexDat
     }
     else
     {
-        shader = GLProgram::SHADER_3D_POSITION;
+        if (hasNormal && usesLight)
+            shader = GLProgram::SHADER_3D_POSITION_NORMAL;
+        else
+            shader = GLProgram::SHADER_3D_POSITION;
     }
 
     CCASSERT(shader, "Couldn't find shader for sprite");

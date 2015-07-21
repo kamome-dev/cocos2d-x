@@ -29,6 +29,8 @@ set(TESTS_SRC
   Classes/AppDelegate.cpp
   Classes/BaseTest.cpp
   Classes/BillBoardTest/BillBoardTest.cpp
+  Classes/BugsTest/Bug-CCDrawNode.cpp
+  Classes/BugsTest/Bug-PageViewLayout.cpp
   Classes/BugsTest/Bug-1159.cpp
   Classes/BugsTest/Bug-1174.cpp
   Classes/BugsTest/Bug-350.cpp
@@ -103,6 +105,7 @@ set(TESTS_SRC
   Classes/NewAudioEngineTest/NewAudioEngineTest.cpp
   Classes/NewEventDispatcherTest/NewEventDispatcherTest.cpp
   Classes/NewRendererTest/NewRendererTest.cpp
+  Classes/NavMeshTest/NavMeshTest.cpp
   Classes/NodeTest/NodeTest.cpp
   Classes/OpenURLTest/OpenURLTest.cpp
   Classes/ParallaxTest/ParallaxTest.cpp
