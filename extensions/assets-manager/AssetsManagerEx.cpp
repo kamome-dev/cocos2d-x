@@ -467,7 +467,9 @@ void AssetsManagerEx::parseVersion()
     }
     else
     {
-        if (_localManifest->versionEquals(_remoteManifest))
+	    Downloader::DownloadUnits tmpUnits;
+        _tempManifest->genResumeAssetsList(&tmpUnits);
+        if (_localManifest->versionEquals(_remoteManifest) && tmpUnits.empty() )
         {
             _updateState = State::UP_TO_DATE;
             dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ALREADY_UP_TO_DATE);
@@ -523,7 +525,9 @@ void AssetsManagerEx::parseManifest()
     }
     else
     {
-        if (_localManifest->versionEquals(_remoteManifest))
+	    Downloader::DownloadUnits tmpUnits;
+        _tempManifest->genResumeAssetsList(&tmpUnits);
+        if (_localManifest->versionEquals(_remoteManifest) && tmpUnits.empty() )
         {
             _updateState = State::UP_TO_DATE;
             dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ALREADY_UP_TO_DATE);
