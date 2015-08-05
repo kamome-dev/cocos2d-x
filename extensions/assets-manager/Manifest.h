@@ -99,6 +99,9 @@ public:
      */
     std::vector<std::string> getSearchPaths() const;
     
+	/** Manifest Url Replace マニフェストファイルのURL置き換えを行う*/
+	static void setManifestUrlReplace( const std::string& replace );
+
 protected:
     
     /** @brief Constructor for Manifest class

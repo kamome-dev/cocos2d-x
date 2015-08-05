@@ -48,6 +48,14 @@
 
 NS_CC_EXT_BEGIN
 
+static std::string replace_;
+void Manifest::setManifestUrlReplace( const std::string& replace ) {
+	replace_ = replace;
+}
+
+
+
+
 Manifest::Manifest(const std::string& manifestUrl/* = ""*/)
 : _versionLoaded(false)
 , _loaded(false)
@@ -492,7 +500,18 @@ void Manifest::loadManifest(const rapidjson::Document &json)
             }
         }
     }
-    
+
+	//URLの置き換え処理
+	if( _packageUrl.length()>0 && _packageUrl[0]=='@' ) {
+		_packageUrl=replace_+_packageUrl.substr(1);
+	}
+	if( _remoteManifestUrl.length()>0 && _remoteManifestUrl[0]=='@' ) {
+		_remoteManifestUrl = replace_ + _remoteManifestUrl.substr(1);
+	}
+	if( _remoteVersionUrl.length()>0 && _remoteVersionUrl[0]=='@' ) {
+		_remoteVersionUrl = replace_ + _remoteVersionUrl.substr(1);
+	}
+
     _loaded = true;
 }
 
