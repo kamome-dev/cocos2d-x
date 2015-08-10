@@ -904,7 +904,7 @@ PhysicsDebugDraw::PhysicsDebugDraw(PhysicsWorld& world)
 , _world(world)
 {
     _drawNode = DrawNode::create();
-    _world.getScene().addChild(_drawNode);
+    _world.getScene().addChild(_drawNode,99999);
 }
 
 PhysicsDebugDraw::~PhysicsDebugDraw()
