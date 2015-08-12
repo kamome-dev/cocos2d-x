@@ -711,6 +711,20 @@ void Downloader::groupBatchDownload(const DownloadUnits &units)
         fclose(f);
         auto single = (*it)->curl;
         curl_multi_remove_handle(multi_handle, single);
+
+#if COCOS2D_DEBUG >= 1
+        //失敗してないかチェック。
+        //最終的にはmd5をチェックすべき？（速度の面の心配がある）
+        long s_long;
+        char* s_pchar;
+        curl_easy_getinfo(single,CURLINFO_EFFECTIVE_URL,&s_pchar );
+        std::string s_url = s_pchar;
+        curl_easy_getinfo(single,CURLINFO_RESPONSE_CODE,&s_long );
+        long s_code = s_long;
+        if( s_code!=200 ) {
+            CCLOG("FAIL:%s(%ld)",s_url.c_str(),s_code);
+        }
+#endif
         curl_easy_cleanup(single);
     }
     curl_multi_cleanup(multi_handle);
