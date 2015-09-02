@@ -327,7 +327,15 @@ public:
      * @param   delta   A float number.
      */
     void step(float delta);
-    
+
+	
+	void setPhysicsInterval( float interval ) { _physics_interval=interval; }
+	float getPhysicsInterval() { return _physics_interval; }
+	
+protected:
+	float _physics_interval;
+	
+	
 protected:
     static PhysicsWorld* construct(Scene& scene);
     bool init(Scene& scene);

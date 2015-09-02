@@ -848,21 +848,39 @@ void PhysicsWorld::update(float delta, bool userCall/* = false*/)
     }
     else
     {
-        _updateTime += delta;
-        if (++_updateRateCount >= _updateRate)
-        {
-            const float dt = _updateTime * _speed / _substeps;
-            for (int i = 0; i < _substeps; ++i)
-            {
-                cpSpaceStep(_cpSpace, dt);
-                for (auto& body : _bodies)
-                {
-                    body->update(dt);
-                }
-            }
-            _updateRateCount = 0;
-            _updateTime = 0.0f;
-        }
+		_updateTime += delta;
+
+		float _physics_interval = 0.015;
+		if( _physics_interval>0 ) {
+			//この間隔で物理演算されることを保証する（描画に引っ張られて、物理演算に隙間ができるのを防ぐ）
+			const float dt = _physics_interval;
+			int num = std::floor( _updateTime/dt );
+			for (int i = 0; i < num; i++ )
+			{
+				cpSpaceStep(_cpSpace, dt);
+				for (auto& body : _bodies)
+				{
+					body->update(dt);
+				}
+			}
+			_updateRateCount = 0;
+			_updateTime -= dt*num;
+		} else {
+			if (++_updateRateCount >= _updateRate)
+			{
+				const float dt = _updateTime * _speed / _substeps;
+				for (int i = 0; i < _substeps; ++i)
+				{
+					cpSpaceStep(_cpSpace, dt);
+					for (auto& body : _bodies)
+					{
+						body->update(dt);
+					}
+				}
+				_updateRateCount = 0;
+				_updateTime = 0.0f;
+			}
+		}
     }
     
     if (_debugDrawMask != DEBUGDRAW_NONE)
@@ -884,6 +902,7 @@ PhysicsWorld::PhysicsWorld()
 , _autoStep(true)
 , _debugDraw(nullptr)
 , _debugDrawMask(DEBUGDRAW_NONE)
+, _physics_interval( 0 )
 {
     
 }
