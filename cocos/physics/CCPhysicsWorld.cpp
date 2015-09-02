@@ -849,8 +849,6 @@ void PhysicsWorld::update(float delta, bool userCall/* = false*/)
     else
     {
 		_updateTime += delta;
-
-		float _physics_interval = 0.015;
 		if( _physics_interval>0 ) {
 			//この間隔で物理演算されることを保証する（描画に引っ張られて、物理演算に隙間ができるのを防ぐ）
 			const float dt = _physics_interval;
