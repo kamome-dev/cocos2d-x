@@ -122,7 +122,7 @@ public:
         Node::updateTransform();
     }
 
-    virtual void updateColor()
+    virtual void updateColor() override
     {
         if (_textureAtlas == nullptr)
         {
@@ -146,7 +146,7 @@ public:
     }
 
     //LabelLetter doesn't need to draw directly.
-    void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
+    void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags) override
     {
     }
 };
@@ -791,7 +791,6 @@ void Label::updateQuads()
                 if (py > _tailoredTopY)
                 {
                     auto clipTop = py - _tailoredTopY;
-                    clipTop=0;
                     _reusedRect.origin.y += clipTop;
                     _reusedRect.size.height -= clipTop;
                     py -= clipTop;
@@ -802,7 +801,7 @@ void Label::updateQuads()
                 }
             }
 
-            if (_reusedRect.size.height > 0.f && _reusedRect.size.width > 0.f)
+//            if (_reusedRect.size.height > 0.f && _reusedRect.size.width > 0.f)
             {
                 _reusedLetter->setTextureRect(_reusedRect, false, _reusedRect.size);
                 _reusedLetter->setPosition(_lettersInfo[ctr].positionX + _linesOffsetX[_lettersInfo[ctr].lineIndex], py);
@@ -872,9 +871,8 @@ void Label::enableShadow(const Color4B& shadowColor /* = Color4B::BLACK */,const
     _shadowEnabled = true;
     _shadowDirty = true;
 
-    auto contentScaleFactor = CC_CONTENT_SCALE_FACTOR();
-    _shadowOffset.width = offset.width * contentScaleFactor;
-    _shadowOffset.height = offset.height * contentScaleFactor;
+    _shadowOffset.width = offset.width;
+    _shadowOffset.height = offset.height;
     //TODO: support blur for shadow
 
     _shadowColor3B.r = shadowColor.r;
