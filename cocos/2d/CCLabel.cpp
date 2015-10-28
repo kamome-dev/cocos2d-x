@@ -446,6 +446,7 @@ void Label::reset()
     }
     _additionalKerning = 0.f;
     _lineHeight = 0.f;
+    _lineSpacing = 0.f;
     _maxLineWidth = 0.f;
     _labelDimensions.width = 0.f;
     _labelDimensions.height = 0.f;
@@ -787,20 +788,20 @@ void Label::updateQuads()
             _reusedRect.origin.y    = letterDef.V;
 
             auto py = _lettersInfo[ctr].positionY + _letterOffsetY;
-            if (_labelHeight > 0.f) {
-                if (py > _tailoredTopY)
-                {
-                    auto clipTop = py - _tailoredTopY;
-                    _reusedRect.origin.y += clipTop;
-                    _reusedRect.size.height -= clipTop;
-                    py -= clipTop;
-                }
-                if (py - letterDef.height < _tailoredBottomY)
-                {
-                    _reusedRect.size.height = (py < _tailoredBottomY) ? 0.f : (py - _tailoredBottomY);
-                }
-            }
-
+//            if (_labelHeight > 0.f) {
+//                if (py > _tailoredTopY)
+//                {
+//                    auto clipTop = py - _tailoredTopY;
+//                    _reusedRect.origin.y += clipTop;
+//                    _reusedRect.size.height -= clipTop;
+//                    py -= clipTop;
+//                }
+//                if (py - letterDef.height < _tailoredBottomY)
+//                {
+//                    _reusedRect.size.height = (py < _tailoredBottomY) ? 0.f : (py - _tailoredBottomY);
+//                }
+//            }
+//隠れている文字を用意しない最適化だが、用意されていない文字がgetLetterされた際に落ちる原因になるため、コメントアウト
 //            if (_reusedRect.size.height > 0.f && _reusedRect.size.width > 0.f)
             {
                 _reusedLetter->setTextureRect(_reusedRect, false, _reusedRect.size);
@@ -1463,6 +1464,20 @@ float Label::getLineHeight() const
 {
     CCASSERT(_currentLabelType != LabelType::STRING_TEXTURE, "Not supported system font!");
     return _textSprite ? 0.0f : _lineHeight;
+}
+
+void Label::setLineSpacing(float height)
+{
+	if (_lineSpacing != height)
+	{
+		_lineSpacing = height;
+		_contentDirty = true;
+	}
+}
+
+float Label::getLineSpacing() const
+{
+	return _lineSpacing;
 }
 
 void Label::setAdditionalKerning(float space)
