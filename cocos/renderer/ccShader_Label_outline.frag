@@ -19,7 +19,7 @@ void main()
     float outlineAlpha = sample.r; 
     if ((fontAlpha + outlineAlpha) > 0.0){
         vec4 color = u_textColor * fontAlpha + u_effectColor * (1.0 - fontAlpha);
-        gl_FragColor = v_fragmentColor * vec4( color.rgb,max(fontAlpha,outlineAlpha)*color.a);
+        gl_FragColor = v_fragmentColor * color * max(fontAlpha,outlineAlpha);
     }
     else {
         discard;

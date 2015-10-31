@@ -86,6 +86,8 @@ FontAtlas::FontAtlas(Font &theFont)
         texture->initWithData(_currentPageData, _currentPageDataSize, 
             pixelFormat, CacheTextureWidth, CacheTextureHeight, Size(CacheTextureWidth,CacheTextureHeight) );
 
+        texture->setAsPremultipliedAlpha(true);
+        
         addTexture(texture,0);
         texture->release();
 

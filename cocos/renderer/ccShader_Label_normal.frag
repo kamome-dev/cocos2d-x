@@ -35,8 +35,15 @@ uniform vec4 u_textColor;
 
 void main()
 {
-    gl_FragColor =  v_fragmentColor * vec4(u_textColor.rgb,// RGB from uniform\n
-        u_textColor.a * texture2D(CC_Texture0, v_texCoord).a// A from texture & uniform\n
-    );
+    gl_FragColor =  v_fragmentColor * u_textColor * texture2D(CC_Texture0, v_texCoord).a;
 }
 );
+
+/*
+ void main()
+ {
+ gl_FragColor =  v_fragmentColor * vec4(u_textColor.rgb,// RGB from uniform\n
+ u_textColor.a * texture2D(CC_Texture0, v_texCoord).a// A from texture & uniform\n
+ );
+ }
+*/
