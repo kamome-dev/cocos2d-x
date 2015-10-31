@@ -21,6 +21,6 @@ void main()
     //glow \n
     float mu = smoothstep(0.5, 1.0, sqrt(dist)); 
     vec4 color = u_effectColor*(1.0-alpha) + u_textColor*alpha;
-    gl_FragColor = v_fragmentColor * vec4(color.rgb, max(alpha,mu)*color.a); 
+    gl_FragColor = v_fragmentColor * color * max(alpha,mu);
 }
 );
