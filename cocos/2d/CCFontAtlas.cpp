@@ -364,6 +364,7 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
                     }
                     tex->initWithData(_currentPageData, _currentPageDataSize,
                         pixelFormat, CacheTextureWidth, CacheTextureHeight, Size(CacheTextureWidth, CacheTextureHeight));
+                    tex->setAsPremultipliedAlpha(true);
                     addTexture(tex, _currentPage);
                     tex->release();
                 }

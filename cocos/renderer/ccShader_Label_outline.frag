@@ -19,6 +19,7 @@ void main()
     float outlineAlpha = sample.r; 
     if ((fontAlpha + outlineAlpha) > 0.0){
         vec4 color = u_textColor * fontAlpha + u_effectColor * (1.0 - fontAlpha);
+        color.rgb = color.rgb*color.a;
         gl_FragColor = v_fragmentColor * color * max(fontAlpha,outlineAlpha);
     }
     else {
@@ -26,3 +27,4 @@ void main()
     }
 }
 );
+//PreMultiAlphaにするには、colorもPreMultiAlphaにしておく必要がある
