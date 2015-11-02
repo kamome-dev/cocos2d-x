@@ -95,13 +95,16 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
         }
         
         if (reason == AVAudioSessionInterruptionTypeEnded) {
-            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+//            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
                 NSError *error = nil;
+                BOOL success = [[AVAudioSession sharedInstance]
+                                setCategory: AVAudioSessionCategoryAmbient
+                                error: &error];
                 [[AVAudioSession sharedInstance] setActive:YES error:&error];
                 alcMakeContextCurrent(s_ALContext);
-            } else {
-                resumeOnBecomingActive = true;
-            }
+//            } else {
+//                resumeOnBecomingActive = true;
+//            }
         }
     }
     
