@@ -60,6 +60,7 @@ public:
     
     //! Asset object
     struct Asset {
+    	long size;
         std::string md5;
         std::string path;
         bool compressed;
@@ -70,6 +71,7 @@ public:
     struct AssetDiff {
         Asset asset;
         DiffType type;
+        long size;
     };
     
     /** @brief Check whether the version informations have been fully loaded

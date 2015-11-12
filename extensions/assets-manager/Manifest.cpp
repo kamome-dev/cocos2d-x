@@ -41,6 +41,7 @@
 
 #define KEY_PATH                "path"
 #define KEY_MD5                 "md5"
+#define KEY_SIZE                "size"
 #define KEY_GROUP               "group"
 #define KEY_COMPRESSED          "compressed"
 #define KEY_COMPRESSED_FILE     "compressedFile"
@@ -50,11 +51,13 @@ NS_CC_EXT_BEGIN
 
 static std::string replace_;
 void Manifest::setManifestUrlReplace( const std::string& replace ) {
-	replace_ = replace;
+
+	std::string path = replace;
+    if (path.size() > 0 && path[path.size() - 1] != '/') {
+        path.append("/");
+	}
+	replace_ = path;
 }
-
-
-
 
 Manifest::Manifest(const std::string& manifestUrl/* = ""*/)
 : _versionLoaded(false)
@@ -183,6 +186,7 @@ std::unordered_map<std::string, Manifest::AssetDiff> Manifest::genDiff(const Man
         valueIt = bAssets.find(key);
         if (valueIt == bAssets.cend()) {
             AssetDiff diff;
+			diff.size = 0;
             diff.asset = valueA;
             diff.type = DiffType::DELETED;
             diff_map.emplace(key, diff);
@@ -193,6 +197,7 @@ std::unordered_map<std::string, Manifest::AssetDiff> Manifest::genDiff(const Man
         valueB = valueIt->second;
         if (valueA.md5 != valueB.md5) {
             AssetDiff diff;
+			diff.size = valueB.size;
             diff.asset = valueB;
             diff.type = DiffType::MODIFIED;
             diff_map.emplace(key, diff);
@@ -208,6 +213,8 @@ std::unordered_map<std::string, Manifest::AssetDiff> Manifest::genDiff(const Man
         valueIt = _assets.find(key);
         if (valueIt == _assets.cend()) {
             AssetDiff diff;
+			//
+			diff.size = valueB.size;
             diff.asset = valueB;
             diff.type = DiffType::ADDED;
             diff_map.emplace(key, diff);
@@ -380,7 +387,13 @@ Manifest::Asset Manifest::parseAsset(const std::string &path, const rapidjson::V
 {
     Asset asset;
     asset.path = path;
-	
+	//アセットにサイズ要素を追加
+    if ( json.HasMember(KEY_SIZE) && json[KEY_SIZE].IsInt() )
+    {
+        asset.size = json[KEY_SIZE].GetInt();
+    }
+    else asset.size = 0;
+
     if ( json.HasMember(KEY_MD5) && json[KEY_MD5].IsString() )
     {
         asset.md5 = json[KEY_MD5].GetString();
@@ -503,7 +516,11 @@ void Manifest::loadManifest(const rapidjson::Document &json)
 
 	//URLの置き換え処理
 	if( _packageUrl.length()>0 && _packageUrl[0]=='@' ) {
-		_packageUrl=replace_+_packageUrl.substr(1);
+    	if( _packageUrl[1]=='/' ) {
+			_packageUrl=replace_+_packageUrl.substr(2);
+        } else {
+			_packageUrl=replace_+_packageUrl.substr(1);
+        }
 	}
 	if( _remoteManifestUrl.length()>0 && _remoteManifestUrl[0]=='@' ) {
 		_remoteManifestUrl = replace_ + _remoteManifestUrl.substr(1);
@@ -511,6 +528,9 @@ void Manifest::loadManifest(const rapidjson::Document &json)
 	if( _remoteVersionUrl.length()>0 && _remoteVersionUrl[0]=='@' ) {
 		_remoteVersionUrl = replace_ + _remoteVersionUrl.substr(1);
 	}
+
+
+
 
     _loaded = true;
 }

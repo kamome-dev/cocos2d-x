@@ -81,6 +81,8 @@ bool DownloaderImpl::init()
 {
     if (!_initialized) {
         _curlHandle = curl_easy_init();
+        curl_easy_setopt(_curlHandle, CURLOPT_SSL_VERIFYPEER, 0L);
+
         _initialized = true;
     }
 
@@ -103,6 +105,7 @@ int DownloaderImpl::performDownload(DownloadUnit* unit,
     unit->_reserved = this;
 
     curl_easy_setopt(_curlHandle, CURLOPT_URL, unit->srcUrl.c_str());
+	curl_easy_setopt(_curlHandle, CURLOPT_SSL_VERIFYPEER, 0L);
 
     // Download pacakge
     curl_easy_setopt(_curlHandle, CURLOPT_WRITEFUNCTION, _fileWriteFunc);
@@ -157,7 +160,9 @@ int DownloaderImpl::performBatchDownload(const DownloadUnits& units,
         if (unit.fp != NULL)
         {
             CURL* curl = curl_easy_init();
+
             curl_easy_setopt(curl, CURLOPT_URL, unit.srcUrl.c_str());
+            curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _fileWriteFunc);
             curl_easy_setopt(curl, CURLOPT_WRITEDATA, &unit);
             curl_easy_setopt(curl, CURLOPT_NOPROGRESS, false);
@@ -269,6 +274,18 @@ int DownloaderImpl::performBatchDownload(const DownloadUnits& units,
     for (auto& curl: curls)
     {
         curl_multi_remove_handle(multi_handle, curl);
+#if COCOS2D_DEBUG >= 1        //失敗してないかチェック。
+        //最終的にはmd5をチェックすべき？（速度の面の心配がある）
+        long s_long;
+        char* s_pchar;
+        curl_easy_getinfo(curl,CURLINFO_EFFECTIVE_URL,&s_pchar );
+        std::string s_url = s_pchar;
+        curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE,&s_long );
+        long s_code = s_long;
+        if( s_code!=200 ) {
+            CCLOG("FAIL:%s(%ld)",s_url.c_str(),s_code);
+        }
+#endif
         curl_easy_cleanup(curl);
     }
     curl_multi_cleanup(multi_handle);
@@ -282,7 +299,8 @@ int DownloaderImpl::getHeader(const std::string& url, HeaderInfo* headerInfo)
 
     void *curlHandle = curl_easy_init();
     CC_ASSERT(headerInfo && "headerInfo must not be null");
-
+    
+    curl_easy_setopt(curlHandle, CURLOPT_SSL_VERIFYPEER, 0L);
     curl_easy_setopt(curlHandle, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curlHandle, CURLOPT_HEADER, 1);
     curl_easy_setopt(curlHandle, CURLOPT_NOBODY, 1);

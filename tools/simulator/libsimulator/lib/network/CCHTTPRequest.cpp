@@ -56,6 +56,7 @@ bool HTTPRequest::initWithUrl(const char *url, int method)
 {
     CCAssert(url, "HTTPRequest::initWithUrl() - invalid url");
     _curl = curl_easy_init();
+    curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);	
     curl_easy_setopt(_curl, CURLOPT_URL, url);
     curl_easy_setopt(_curl, CURLOPT_USERAGENT, "libcurl");
     curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, DEFAULT_TIMEOUT);
