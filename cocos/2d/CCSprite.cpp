@@ -673,11 +673,11 @@ void Sprite::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
     auto visitingCamera = Camera::getVisitingCamera();
     auto defaultCamera = Camera::getDefaultCamera();
     if (visitingCamera == defaultCamera) {
-        _insideBounds = ((flags & FLAGS_TRANSFORM_DIRTY)|| visitingCamera->isViewProjectionUpdated()) ? renderer->checkVisibility(transform, _contentSize) : _insideBounds;
+        _insideBounds = ((flags & FLAGS_TRANSFORM_DIRTY)|| visitingCamera->isViewProjectionUpdated()) ? renderer->checkVisibility(transform, _contentSize*2) : _insideBounds;
     }
     else
     {
-        _insideBounds = renderer->checkVisibility(transform, _contentSize);
+        _insideBounds = renderer->checkVisibility(transform, _contentSize*2);
     }
 
     if(_insideBounds)
