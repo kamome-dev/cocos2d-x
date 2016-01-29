@@ -679,6 +679,19 @@ void Label::updateLabelLetters()
                 uvRect.origin.x = letterDef.U;
                 uvRect.origin.y = letterDef.V;
 
+                CCLOG("FontLetterDefinition U:%f V:%f width:%f height:%f offsetX:%f offsetY:%f textureID:%d validDefinition:%d xAdvance:%d",
+                    letterDef.U,
+                    letterDef.V,
+                    letterDef.width,
+                    letterDef.height,
+                    letterDef.offsetX,
+                    letterDef.offsetY,
+                    letterDef.textureID,
+                    letterDef.validDefinition,
+                    letterDef.xAdvance
+                );
+
+                                
                 letterSprite->setTexture(_fontAtlas->getTexture(letterDef.textureID));
                 if (letterDef.width <= 0.f || letterDef.height <= 0.f)
                 {
@@ -708,8 +721,9 @@ void Label::alignText()
         setContentSize(Size::ZERO);
         return;
     }
-
-    _fontAtlas->prepareLetterDefinitions(_utf16Text);
+    CCLOG("*************************prepareLetterDefinitions begin");
+    auto res =_fontAtlas->prepareLetterDefinitions(_utf16Text);
+    CCLOG("*************************prepareLetterDefinitions end :%s",res?"true":"false");
     auto& textures = _fontAtlas->getTextures();
     if (textures.size() > _batchNodes.size())
     {

@@ -127,11 +127,15 @@ FontAtlas::~FontAtlas()
 
 void FontAtlas::relaseTextures()
 {
+	CCLOG("***************relaseTextures");
     for( auto &item: _atlasTextures)
     {
         item.second->release();
     }
     _atlasTextures.clear();
+	_currentPage = 0;
+	_currentPageOrigX = 0;
+	_currentPageOrigY = 0;
 }
 
 void FontAtlas::purgeTexturesAtlas()
@@ -314,6 +318,7 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
 
     float startY = _currentPageOrigY;
 
+    CCLOG("***************************found %ld new Charactor",codeMapOfNewChar.size());
     for (auto&& it : codeMapOfNewChar)
     {
         auto bitmap = _fontFreeType->getGlyphBitmap(it.second, bitmapWidth, bitmapHeight, tempRect, tempDef.xAdvance);
