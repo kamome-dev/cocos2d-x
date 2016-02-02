@@ -357,24 +357,24 @@ void RuntimeEngine::trackEvent(const std::string &eventName)
     const char *platform = "UNKNOWN";
 #endif
 
-    char cidBuf[64] = {0};
-    auto guid = player::DeviceEx::getInstance()->getUserGUID();
-    snprintf(cidBuf, sizeof(cidBuf), "%x", XXH32(guid.c_str(), (int)guid.length(), 0));
-    auto request = extra::HTTPRequest::createWithUrl(NULL,
-                                                     "http://www.google-analytics.com/collect",
-                                                     kCCHTTPRequestMethodPOST);
-    request->addPOSTValue("v", "1");
-    request->addPOSTValue("tid", "UA-58200293-1");
-    request->addPOSTValue("cid", cidBuf);
-    request->addPOSTValue("t", "event");
-
-    request->addPOSTValue("an", "simulator");
-    request->addPOSTValue("av", cocos2dVersion());
-
-    request->addPOSTValue("ec", platform);
-    request->addPOSTValue("ea", eventName.c_str());
-
-    request->start();
+//    char cidBuf[64] = {0};
+//    auto guid = player::DeviceEx::getInstance()->getUserGUID();
+//    snprintf(cidBuf, sizeof(cidBuf), "%x", XXH32(guid.c_str(), (int)guid.length(), 0));
+//    auto request = extra::HTTPRequest::createWithUrl(NULL,
+//                                                     "http://www.google-analytics.com/collect",
+//                                                     kCCHTTPRequestMethodPOST);
+//    request->addPOSTValue("v", "1");
+//    request->addPOSTValue("tid", "UA-58200293-1");
+//    request->addPOSTValue("cid", cidBuf);
+//    request->addPOSTValue("t", "event");
+//
+//    request->addPOSTValue("an", "simulator");
+//    request->addPOSTValue("av", cocos2dVersion());
+//
+//    request->addPOSTValue("ec", platform);
+//    request->addPOSTValue("ea", eventName.c_str());
+//
+//    request->start();
 
 #endif // ((CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC))
 }
