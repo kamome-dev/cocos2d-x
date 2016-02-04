@@ -208,10 +208,12 @@ void LuaMinXmlHttpRequest::_sendRequest()
         long statusCode = response->getResponseCode();
         char statusString[64] = {};
         sprintf(statusString, "HTTP Status Code: %ld, tag = %s", statusCode, response->getHttpRequest()->getTag());
-        
+        CCLOG("HTTP Status Code: %ld, tag = %s", statusCode, response->getHttpRequest()->getTag());
+		
         if (!response->isSucceed())
         {
             CCLOG("Response failed, error buffer: %s", response->getErrorBuffer());
+			_status    = (int)statusCode;
             if(statusCode == 0)
             {
                 _errorFlag = true;
@@ -254,7 +256,7 @@ void LuaMinXmlHttpRequest::_sendRequest()
         }
         else
         {
-            _status = 0;
+            _status = (int)statusCode;
         }
         
         // TODO: call back lua function
