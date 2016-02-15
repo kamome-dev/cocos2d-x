@@ -273,19 +273,55 @@ int DownloaderImpl::performBatchDownload(const DownloadUnits& units,
     // Clean up and close files
     for (auto& curl: curls)
     {
-        curl_multi_remove_handle(multi_handle, curl);
 #if COCOS2D_DEBUG >= 1        //失敗してないかチェック。
         //最終的にはmd5をチェックすべき？（速度の面の心配がある）
         long s_long;
         char* s_pchar;
-        curl_easy_getinfo(curl,CURLINFO_EFFECTIVE_URL,&s_pchar );
-        std::string s_url = s_pchar;
         curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE,&s_long );
         long s_code = s_long;
         if( s_code!=200 ) {
-            CCLOG("FAIL:%s(%ld)",s_url.c_str(),s_code);
+			#define CInfo_long( stat ) curl_easy_getinfo(curl,stat,&s_long );CCLOG( "  " #stat ":%ld",s_long );
+			#define CInfo_string( stat ) curl_easy_getinfo(curl,stat,&s_pchar );CCLOG( "  " #stat ":%s",s_pchar );
+            CCLOG( "FAIL:%ld",s_code );
+			CInfo_string( CURLINFO_EFFECTIVE_URL );
+			CInfo_long( CURLINFO_HTTP_CONNECTCODE );
+			CInfo_long( CURLINFO_FILETIME );
+			CInfo_long( CURLINFO_TOTAL_TIME );
+			CInfo_long( CURLINFO_NAMELOOKUP_TIME );
+			CInfo_long( CURLINFO_CONNECT_TIME );
+			CInfo_long( CURLINFO_APPCONNECT_TIME );
+			CInfo_long( CURLINFO_PRETRANSFER_TIME );
+			CInfo_long( CURLINFO_STARTTRANSFER_TIME );
+			CInfo_long( CURLINFO_REDIRECT_TIME );
+			CInfo_long( CURLINFO_REDIRECT_COUNT );
+			CInfo_long( CURLINFO_REDIRECT_COUNT );
+			CInfo_string( CURLINFO_REDIRECT_URL );
+			CInfo_long( CURLINFO_SIZE_UPLOAD );
+			CInfo_long( CURLINFO_SIZE_DOWNLOAD );
+			CInfo_long( CURLINFO_SPEED_DOWNLOAD );
+			CInfo_long( CURLINFO_SPEED_UPLOAD );
+			CInfo_long( CURLINFO_HEADER_SIZE );
+			CInfo_long( CURLINFO_REQUEST_SIZE );
+			CInfo_long( CURLINFO_SSL_VERIFYRESULT );
+			CInfo_long( CURLINFO_SSL_ENGINES );
+			CInfo_long( CURLINFO_CONTENT_LENGTH_DOWNLOAD );
+			CInfo_long( CURLINFO_CONTENT_LENGTH_UPLOAD );
+			CInfo_long( CURLINFO_CONTENT_TYPE );
+			CInfo_string( CURLINFO_PRIVATE );
+			CInfo_long( CURLINFO_HTTPAUTH_AVAIL );
+			CInfo_long( CURLINFO_PROXYAUTH_AVAIL );
+			CInfo_long( CURLINFO_OS_ERRNO );
+			CInfo_long( CURLINFO_NUM_CONNECTS );
+			CInfo_string( CURLINFO_PRIMARY_IP );
+			CInfo_long( CURLINFO_PRIMARY_PORT );
+			CInfo_string( CURLINFO_LOCAL_IP );
+			CInfo_long( CURLINFO_LOCAL_PORT );
+			CInfo_string( CURLINFO_COOKIELIST );
+            CInfo_long( CURLINFO_LASTSOCKET );
+			CInfo_string( CURLINFO_FTP_ENTRY_PATH );
         }
 #endif
+        curl_multi_remove_handle(multi_handle, curl);
         curl_easy_cleanup(curl);
     }
     curl_multi_cleanup(multi_handle);
