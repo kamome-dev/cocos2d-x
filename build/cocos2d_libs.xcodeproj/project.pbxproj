@@ -4501,7 +4501,7 @@
 		50ABBDC91925AB6E00A911A9 /* ccConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ccConfig.h; path = ../base/ccConfig.h; sourceTree = "<group>"; };
 		50ABBDCA1925AB6E00A911A9 /* CCConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCConfiguration.cpp; path = ../base/CCConfiguration.cpp; sourceTree = "<group>"; };
 		50ABBDCB1925AB6E00A911A9 /* CCConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCConfiguration.h; path = ../base/CCConfiguration.h; sourceTree = "<group>"; };
-		50ABBDCC1925AB6E00A911A9 /* CCConsole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCConsole.cpp; path = ../base/CCConsole.cpp; sourceTree = "<group>"; };
+		50ABBDCC1925AB6E00A911A9 /* CCConsole.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CCConsole.cpp; path = ../base/CCConsole.cpp; sourceTree = "<group>"; };
 		50ABBDCD1925AB6E00A911A9 /* CCConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCConsole.h; path = ../base/CCConsole.h; sourceTree = "<group>"; };
 		50ABBDCE1925AB6E00A911A9 /* CCData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCData.cpp; path = ../base/CCData.cpp; sourceTree = "<group>"; };
 		50ABBDCF1925AB6E00A911A9 /* CCData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCData.h; path = ../base/CCData.h; sourceTree = "<group>"; };
