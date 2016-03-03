@@ -199,16 +199,17 @@ public class Cocos2dxVideoView extends SurfaceView implements MediaPlayerControl
     
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)
-        {
-            if (isPlaying()) {
-                pause();
-            } else if(mCurrentState == STATE_PAUSED){
-                resume();
-            }
-        }
+//        if((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP)
+//        {
+//            if (isPlaying()) {
+//                pause();
+//            } else if(mCurrentState == STATE_PAUSED){
+//                resume();
+//            }
+//        }
         
-        return true;
+//        return true;
+    	return false;
     }
     
     private boolean mIsAssetRouse = false;
