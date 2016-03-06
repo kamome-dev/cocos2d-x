@@ -749,14 +749,15 @@ void LuaStack::setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign,
     
     if (key && keyLen && sign && signLen)
     {
-        _xxteaKey = (char*)malloc(keyLen);
+        _xxteaKey = (char*)malloc(keyLen+1);
+		memset( _xxteaKey,0,keyLen+1 );
         memcpy(_xxteaKey, key, keyLen);
         _xxteaKeyLen = keyLen;
         
-        _xxteaSign = (char*)malloc(signLen);
+        _xxteaSign = (char*)malloc(signLen+1);
+		memset( _xxteaSign,0,signLen+1 );
         memcpy(_xxteaSign, sign, signLen);
         _xxteaSignLen = signLen;
-        
         _xxteaEnabled = true;
     }
     else
@@ -891,8 +892,7 @@ int LuaStack::luaLoadChunksFromZIP(lua_State *L)
 int LuaStack::luaLoadBuffer(lua_State *L, const char *chunk, int chunkSize, const char *chunkName)
 {
     int r = 0;
-    
-    if (_xxteaEnabled && strncmp(chunk, _xxteaSign, _xxteaSignLen) == 0)
+	if (_xxteaEnabled && strncmp(chunk, _xxteaSign, _xxteaSignLen) == 0)
     {
         // decrypt XXTEA
         xxtea_long len = 0;
