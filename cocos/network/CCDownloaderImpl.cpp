@@ -274,6 +274,7 @@ int DownloaderImpl::performBatchDownload(const DownloadUnits& units,
     for (auto& curl: curls)
     {
 #if COCOS2D_DEBUG >= 1        //失敗してないかチェック。
+#if 0
         //最終的にはmd5をチェックすべき？（速度の面の心配がある）
         long s_long;
         char* s_pchar;
@@ -320,6 +321,7 @@ int DownloaderImpl::performBatchDownload(const DownloadUnits& units,
 //            CInfo_long( CURLINFO_LASTSOCKET );
 //			CInfo_string( CURLINFO_FTP_ENTRY_PATH );
         }
+#endif
 #endif
         curl_multi_remove_handle(multi_handle, curl);
         curl_easy_cleanup(curl);
