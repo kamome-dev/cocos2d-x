@@ -914,6 +914,13 @@ void AssetsManagerEx::onSuccess(const std::string &srcUrl, const std::string &st
             if (assetIt->second.compressed) {
                 _compressedFiles.push_back(storagePath);
             }
+            
+            static int write_count_ = 0;
+            if( write_count_++>10 ) {
+	            // Save current download manifest information for resuming
+    	        _tempManifest->saveToFile(_tempManifestPath);
+                write_count_=0;
+            }
         }
         
         auto unitIt = _downloadUnits.find(customId);
