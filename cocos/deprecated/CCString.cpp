@@ -275,6 +275,7 @@ __String* __String::clone() const
 
 namespace StringUtils {
 
+#if 0
 std::string format(const char* format, ...)
 {
 #define CC_MAX_STRING_LENGTH (1024*100)
@@ -295,7 +296,30 @@ std::string format(const char* format, ...)
     
     return ret;
 }
+#else
+std::string format(const char* format, ...)
+{
+#define CC_MAX_STRING_LENGTH (1024*100)
+    
+    std::string ret;
+    
+    va_list ap;
+    va_start(ap, format);
+    
+	int len = vsnprintf( nullptr,0, format, ap );
 
+    char* buf = new char[len+10];
+    if (buf != nullptr)
+    {
+        vsnprintf(buf, len+1 , format, ap);
+        ret = buf;
+        delete [] buf;
+    }
+    va_end(ap);
+    
+    return ret;
+}
+#endif
 } // namespace StringUtils {
     
 NS_CC_END

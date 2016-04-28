@@ -28,6 +28,12 @@ THE SOFTWARE.
 #ifndef __CCCONFIG_H__
 #define __CCCONFIG_H__
 
+#define CC_ENABLE_ALLOCATOR 1
+#define CC_ENABLE_ALLOCATOR_DIAGNOSTICS 0
+#define CC_ENABLE_ALLOCATOR_GLOBAL_NEW_DELETE 0
+#define CC_ALLOCATOR_GLOBAL cocos2d::allocator::AllocatorStrategyDefault
+#define CC_ALLOCATOR_GLOBAL_NEW_DELETE cocos2d::allocator::AllocatorStrategyGlobalSmallBlock
+
 #include "platform/CCPlatformConfig.h"
 
 /**
