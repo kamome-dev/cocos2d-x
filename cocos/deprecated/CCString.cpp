@@ -305,9 +305,10 @@ std::string format(const char* format, ...)
     
     va_list ap;
     va_start(ap, format);
-    
-	int len = vsnprintf( nullptr,0, format, ap );
+    int len = vsnprintf( nullptr,0, format, ap );
+    va_end(ap);
 
+    va_start(ap, format);
     char* buf = new char[len+10];
     if (buf != nullptr)
     {
