@@ -36,7 +36,7 @@ static const long LOW_SPEED_LIMIT = 1;
 static const long LOW_SPEED_TIME = 5;
 static const int DEFAULT_TIMEOUT = 5;
 static const int MAX_REDIRS = 2;
-static const int MAX_WAIT_MSECS = 30*1000; /* Wait max. 30 seconds */
+static const int MAX_WAIT_MSECS = 1*1000; /* Wait max. 30 seconds 長すぎ？*/
 
 static const int HTTP_CODE_SUPPORT_RESUME = 206;
 static const char* TEMP_EXT = ".temp";
