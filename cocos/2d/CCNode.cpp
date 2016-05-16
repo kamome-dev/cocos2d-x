@@ -1448,6 +1448,8 @@ void Node::onEnter()
         ScriptEngineManager::sendNodeEventToLua(this, kNodeOnEnter);
     }
 #endif
+
+	onAttachNode();
 }
 
 void Node::onEnterTransitionDidFinish()
@@ -1501,6 +1503,9 @@ void Node::onExitTransitionDidStart()
 
 void Node::onExit()
 {
+	onDetachNode();
+
+
 #if CC_ENABLE_SCRIPT_BINDING
     if (_scriptType == kScriptTypeJavascript)
     {
@@ -2408,6 +2413,19 @@ __NodeRGBA::__NodeRGBA()
 
 
 // MARK: For CocosTools
+std::unordered_map<std::string,Node*> Node::node_map_;
+
+std::string Node::getNodeId() {
+	return StringUtils::format("#%llx",(uint64_t)this );
+}
+void Node::onAttachNode() {
+	node_map_[ getNodeId() ] = this;
+}
+
+void Node::onDetachNode() {
+	node_map_.erase( getNodeId() );
+}
+
 float Node::getTempo() {
 	return _tempo;
 }
@@ -2433,6 +2451,14 @@ void Node::updateTempo() {
 	for (const auto& child : _children) {
 		child->updateTempo();
 	}
+}
+
+Node* Node::findNodeFromId( const std::string& id ) {
+	auto f = node_map_.find(id);
+	if( f==node_map_.end() ) {
+		return nullptr;
+	}
+	return f->second;
 }
 
 

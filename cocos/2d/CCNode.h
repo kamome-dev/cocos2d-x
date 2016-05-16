@@ -1912,7 +1912,12 @@ public:
 	virtual float getTotalTempo();
 	virtual void setTempo( float tempo );
 	virtual void updateTempo();
+    virtual std::string getNodeId();
+    virtual void onAttachNode();
+    virtual void onDetachNode();
+    static Node* findNodeFromId( const std::string& id );
 protected:
+	static std::unordered_map<std::string,Node*> node_map_;
 	float _totaltempo;
 	float _tempo;
 };
