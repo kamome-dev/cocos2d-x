@@ -2416,7 +2416,7 @@ __NodeRGBA::__NodeRGBA()
 std::unordered_map<std::string,Node*> Node::node_map_;
 
 std::string Node::getNodeId() {
-	return StringUtils::format("#%llx",(uint64_t)this );
+	return StringUtils::format("$%llx$",(uint64_t)this );
 }
 void Node::onAttachNode() {
 	node_map_[ getNodeId() ] = this;
