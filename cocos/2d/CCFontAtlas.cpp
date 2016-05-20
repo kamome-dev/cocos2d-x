@@ -65,7 +65,7 @@ FontAtlas::FontAtlas(Font &theFont)
         _currentPageOrigX = 0;
         _currentPageOrigY = 0;
         _letterEdgeExtend = 2;
-        _letterPadding = 0;
+        _letterPadding = 2;
 
         if (_fontFreeType->isDistanceFieldEnabled())
         {
@@ -367,7 +367,7 @@ bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
                     startY = 0.0f;
 
                     _currentPageOrigY = 0;
-                    memset(_currentPageData, 0xFF, _currentPageDataSize);
+                    memset(_currentPageData, 0, _currentPageDataSize);
                     _currentPage++;
                     auto tex = new (std::nothrow) Texture2D;
                     if (_antialiasEnabled)
