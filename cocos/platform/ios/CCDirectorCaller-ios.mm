@@ -1,19 +1,19 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2013-2014 Chukong Technologies Inc.
-
+ 
  http://www.cocos2d-x.org
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -66,18 +66,42 @@ static id s_sharedDirectorCaller;
 
 -(void) alloc
 {
-        interval = 1;
+    interval = 1;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        isAppActive = [UIApplication sharedApplication].applicationState == UIApplicationStateActive;
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(appDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [nc addObserver:self selector:@selector(appDidBecomeInactive) name:UIApplicationWillResignActiveNotification object:nil];
+    }
+    return self;
 }
 
 -(void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [displayLink release];
     [super dealloc];
 }
 
+- (void)appDidBecomeActive
+{
+    isAppActive = YES;
+}
+
+- (void)appDidBecomeInactive
+{
+    isAppActive = NO;
+}
+
 -(void) startMainLoop
 {
-        // Director::setAnimationInterval() is called, we should invalidate it first
+    // Director::setAnimationInterval() is called, we should invalidate it first
     [self stopMainLoop];
     
     displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(doCaller:)];
@@ -95,22 +119,23 @@ static id s_sharedDirectorCaller;
 {
     // Director::setAnimationInterval() is called, we should invalidate it first
     [self stopMainLoop];
-        
+    
     self.interval = 60.0 * intervalNew;
-        
+    
     displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(doCaller:)];
     [displayLink setFrameInterval: self.interval];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
-                      
+
 -(void) doCaller: (id) sender
 {
-    cocos2d::Director* director = cocos2d::Director::getInstance();
-    [EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
-    director->mainLoop();
+    if (isAppActive) {
+        cocos2d::Director* director = cocos2d::Director::getInstance();
+        [EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
+        director->mainLoop();
+    }
 }
 
 @end
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-
