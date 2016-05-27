@@ -231,6 +231,7 @@ using namespace cocos2d::experimental::ui;
     if (self.moviePlayer != NULL) {
         [self.moviePlayer.view setFrame:CGRectMake(_left, _top, _width, _height)];
         [self.moviePlayer play];
+        self.moviePlayer.view.userInteractionEnabled = NO;
 		if( self.isFullScreenEnabled ) {
 			self.moviePlayer.controlStyle = MPMovieControlStyleDefault;
 		} else {
