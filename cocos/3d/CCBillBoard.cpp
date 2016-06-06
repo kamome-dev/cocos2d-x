@@ -155,7 +155,7 @@ bool BillBoard::calculateBillbaordTransform()
     //Get camera world position
     auto camera = Camera::getVisitingCamera();
     if( camera==nullptr ) {
-    	return true;
+        camera = Camera::getDefaultCamera();
     }
     const Mat4& camWorldMat = camera->getNodeToWorldTransform();
     
