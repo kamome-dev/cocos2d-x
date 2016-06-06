@@ -107,7 +107,7 @@ void BillBoard::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t 
     uint32_t flags = processParentFlags(parentTransform, parentFlags);
     
     //Add 3D flag so all the children will be rendered as 3D object
-    flags |= FLAGS_RENDER_AS_3D;
+//    flags |= FLAGS_RENDER_AS_3D;
     
     //Update Billboard transform
     bool dirty = calculateBillbaordTransform();
@@ -154,6 +154,9 @@ bool BillBoard::calculateBillbaordTransform()
 {
     //Get camera world position
     auto camera = Camera::getVisitingCamera();
+    if( camera==nullptr ) {
+    	return true;
+    }
     const Mat4& camWorldMat = camera->getNodeToWorldTransform();
     
     //TODO: use math lib to calculate math lib Make it easier to read and maintain
@@ -225,10 +228,10 @@ bool BillBoard::calculateBillbaordTransform()
 void BillBoard::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 {
     //FIXME: frustum culling here
-    flags |= Node::FLAGS_RENDER_AS_3D;
+//    flags |= Node::FLAGS_RENDER_AS_3D;
     _trianglesCommand.init(0, _texture->getName(), getGLProgramState(), _blendFunc, _polyInfo.triangles, _modelViewTransform, flags);
     _trianglesCommand.setTransparent(true);
-    _trianglesCommand.set3D(true);
+//    _trianglesCommand.set3D(true);
     renderer->addCommand(&_trianglesCommand);
 }
 
