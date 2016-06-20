@@ -65,7 +65,7 @@ FontAtlas::FontAtlas(Font &theFont)
         _currentPageOrigX = 0;
         _currentPageOrigY = 0;
         _letterEdgeExtend = 2;
-        _letterPadding = 2;
+        _letterPadding = 0;
 
         if (_fontFreeType->isDistanceFieldEnabled())
         {
