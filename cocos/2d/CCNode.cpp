@@ -2414,11 +2414,14 @@ __NodeRGBA::__NodeRGBA()
 
 // MARK: For CocosTools
 std::unordered_map<std::string,Node*> Node::node_map_;
+long Node::node_id_count_ = 0;
 
-std::string Node::getNodeId() {
-	return StringUtils::format("$%llx$",(uint64_t)this );
+const std::string& Node::getNodeId() {
+	return node_id_;
 }
 void Node::onAttachNode() {
+	node_id_count_++;
+    node_id_ = StringUtils::format("$%lx$",node_id_count_ );
 	node_map_[ getNodeId() ] = this;
 }
 
