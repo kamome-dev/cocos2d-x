@@ -334,6 +334,11 @@ bool AssetsManagerEx::decompress(const std::string &zip)
         {
             //There are not directory entry in some case.
             //So we need to create directory when decompressing file entry
+            if ( _fileUtils->isDirectoryExist( basename(fullPath) ) ) {
+				//フォルダが存在する場合は消さないとだめ
+                CCLOG("REMOVE DIR:%s",basename(fullPath).c_str() );
+                _fileUtils->removeDirectory( basename(fullPath)+"/" );
+            }
             if ( !_fileUtils->createDirectory(basename(fullPath)) )
             {
                 // Failed to create directory
