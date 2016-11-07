@@ -1,6 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
- Copyright (c) 2012 James Chen
+ Copyright (c) 2015 hanxi
  
  http://www.cocos2d-x.org
  
@@ -23,12 +23,12 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __UIEDITBOXIMPLANDROID_H__
-#define __UIEDITBOXIMPLANDROID_H__
+#ifndef __UIEDITBOXIMPLLINUX_H__
+#define __UIEDITBOXIMPLLINUX_H__
 
 #include "platform/CCPlatformConfig.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 
 #include "ui/UIEditBox/UIEditBoxImpl-common.h"
 
@@ -40,48 +40,50 @@ namespace ui {
 
 class EditBox;
 
-class EditBoxImplAndroid : public EditBoxImplCommon
+class EditBoxImplLinux: public EditBoxImplCommon
 {
 public:
     /**
      * @js NA
      */
-    EditBoxImplAndroid(EditBox* pEditText);
+    EditBoxImplLinux(EditBox* pEditText);
     /**
      * @js NA
      * @lua NA
      */
-    virtual ~EditBoxImplAndroid();
+    virtual ~EditBoxImplLinux();
     
 
     virtual bool isEditing() override;
-    virtual void createNativeControl(const Rect& frame) override;
-    virtual void setNativeFont(const char* pFontName, int fontSize) override;
-    virtual void setNativeFontColor(const Color4B& color) override;
-    virtual void setNativePlaceholderFont(const char* pFontName, int fontSize) override;
-    virtual void setNativePlaceholderFontColor(const Color4B& color) override;
-    virtual void setNativeInputMode(EditBox::InputMode inputMode) override;
-    virtual void setNativeInputFlag(EditBox::InputFlag inputFlag) override;
-    virtual void setNativeReturnType(EditBox::KeyboardReturnType returnType)override;
-    virtual void setNativeText(const char* pText) override;
-    virtual void setNativePlaceHolder(const char* pText) override;
-    virtual void setNativeVisible(bool visible) override;
-    virtual void updateNativeFrame(const Rect& rect) override;
-    virtual const char* getNativeDefaultFontName() override;
+    virtual void createNativeControl(const Rect& frame) override {};
+    virtual void setNativeFont(const char* pFontName, int fontSize) override {};
+    virtual void setNativeFontColor(const Color4B& color) override {};
+    virtual void setNativePlaceholderFont(const char* pFontName, int fontSize) override {};
+    virtual void setNativePlaceholderFontColor(const Color4B& color) override {};
+    virtual void setNativeInputMode(EditBox::InputMode inputMode) override {};
+    virtual void setNativeInputFlag(EditBox::InputFlag inputFlag) override {};
+    virtual void setNativeReturnType(EditBox::KeyboardReturnType returnType)override {};
+    virtual void setNativeText(const char* pText) override {};
+    virtual void setNativePlaceHolder(const char* pText) override {};
+    virtual void setNativeVisible(bool visible) override {};
+    virtual void updateNativeFrame(const Rect& rect) override {};
+    virtual const char* getNativeDefaultFontName() override {};
     virtual void nativeOpenKeyboard() override;
-    virtual void nativeCloseKeyboard() override;
-    virtual void setNativeMaxLength(int maxLength) override;
+    virtual void nativeCloseKeyboard() override {};
+    virtual void setNativeMaxLength(int maxLength) override {};
+
     
 private:
-    int _editBoxIndex;
+    virtual void doAnimationWhenKeyboardMove(float duration, float distance)override {}
 };
 
 
 }
 
+
 NS_CC_END
 
-#endif /* #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) */
+#endif /* #if (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX) */
 
-#endif /* __UIEDITBOXIMPLANDROID_H__ */
+#endif /* __UIEDITBOXIMPLLINUX_H__ */
 

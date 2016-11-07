@@ -28,7 +28,7 @@ Copyright (c) 2013-2014 Chukong Technologies
 #include "base/ccMacros.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "CCArray.h"
+#include "deprecated/CCArray.h"
 #include "base/ccUtils.h"
 
 NS_CC_BEGIN
@@ -196,7 +196,7 @@ __Array* __String::componentsSeparatedByString(const char *delimiter)
         strTmp = strTmp.substr(cutAt + 1);
     }
     
-    if(strTmp.length() > 0)
+    if(!strTmp.empty())
     {
         result->addObject(__String::create(strTmp));
     }
@@ -220,7 +220,7 @@ bool __String::isEqual(const Ref* pObject)
 
 __String* __String::create(const std::string& str)
 {
-    __String* ret = new __String(str);
+    __String* ret = new (std::nothrow) __String(str);
     ret->autorelease();
     return ret;
 }
@@ -272,55 +272,5 @@ __String* __String::clone() const
 {
     return __String::create(_string);
 }
-
-namespace StringUtils {
-
-#if 0
-std::string format(const char* format, ...)
-{
-#define CC_MAX_STRING_LENGTH (1024*100)
-    
-    std::string ret;
-    
-    va_list ap;
-    va_start(ap, format);
-    
-    char* buf = (char*)malloc(CC_MAX_STRING_LENGTH);
-    if (buf != nullptr)
-    {
-        vsnprintf(buf, CC_MAX_STRING_LENGTH, format, ap);
-        ret = buf;
-        free(buf);
-    }
-    va_end(ap);
-    
-    return ret;
-}
-#else
-std::string format(const char* format, ...)
-{
-#define CC_MAX_STRING_LENGTH (1024*100)
-    
-    std::string ret;
-    
-    va_list ap;
-    va_start(ap, format);
-    int len = vsnprintf( nullptr,0, format, ap );
-    va_end(ap);
-
-    va_start(ap, format);
-    char* buf = new char[len+10];
-    if (buf != nullptr)
-    {
-        vsnprintf(buf, len+1 , format, ap);
-        ret = buf;
-        delete [] buf;
-    }
-    va_end(ap);
-    
-    return ret;
-}
-#endif
-} // namespace StringUtils {
     
 NS_CC_END
