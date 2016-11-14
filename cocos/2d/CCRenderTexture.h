@@ -327,6 +327,7 @@ protected:
     
     GLuint       _FBO;
     GLuint       _depthRenderBufffer;
+	GLuint       _stencilRenderBufffer;
     GLint        _oldFBO;
     Texture2D* _texture;
     Texture2D* _textureCopy;    // a copy of _texture
@@ -334,7 +335,7 @@ protected:
     Texture2D::PixelFormat _pixelFormat;
     
     GLuint _depthStencilFormat;
-    
+	
     
     // code for "auto" update
     GLbitfield   _clearFlags;
