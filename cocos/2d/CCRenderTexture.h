@@ -333,6 +333,9 @@ protected:
     Image*     _UITextureImage;
     Texture2D::PixelFormat _pixelFormat;
     
+    GLuint _depthStencilFormat;
+    
+    
     // code for "auto" update
     GLbitfield   _clearFlags;
     Color4F    _clearColor;
