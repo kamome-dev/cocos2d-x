@@ -921,7 +921,7 @@ void AssetsManagerEx::onSuccess(const std::string &srcUrl, const std::string &st
             }
             
             static int write_count_ = 0;
-            if( write_count_++>10 ) {
+            if( write_count_++>100 ) {
 	            // Save current download manifest information for resuming
     	        _tempManifest->saveToFile(_tempManifestPath);
                 write_count_=0;
