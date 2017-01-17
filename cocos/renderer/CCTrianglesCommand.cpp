@@ -99,7 +99,9 @@ void TrianglesCommand::useMaterial() const
     //set blend mode
     GL::blendFunc(_blendType.src, _blendType.dst);
     
-    _glProgramState->apply(_mv);
+    if( _glProgramState!=nullptr ) {
+	    _glProgramState->apply(_mv);
+    }
 }
 
 NS_CC_END
