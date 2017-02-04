@@ -153,6 +153,7 @@ Node::Node(void)
     _scriptType = engine != nullptr ? engine->getScriptType() : kScriptTypeNone;
 #endif
     _transform = _inverse = _additionalTransform = Mat4::IDENTITY;
+    onCreateNode();
 }
 
 Node * Node::create()
@@ -172,6 +173,7 @@ Node * Node::create()
 Node::~Node()
 {
     CCLOGINFO( "deallocing Node: %p - tag: %i", this, _tag );
+    onDeleteNode();
     
 #if CC_ENABLE_SCRIPT_BINDING
     if (_updateScriptHandler)
@@ -2412,22 +2414,54 @@ __NodeRGBA::__NodeRGBA()
 
 
 
-// MARK: For CocosTools
+// MARK: For SpLib
 std::unordered_map<std::string,Node*> Node::node_map_;
 long Node::node_id_count_ = 0;
+std::unordered_map<std::string,std::unordered_map<std::string,Node*> > Node::tag_map_;
 
 const std::string& Node::getNodeId() {
 	return node_id_;
 }
-void Node::onAttachNode() {
-	node_id_count_++;
+void Node::onCreateNode() {
+    node_id_count_++;
     node_id_ = StringUtils::format("$%lx$",node_id_count_ );
-	node_map_[ getNodeId() ] = this;
+    node_map_[ getNodeId() ] = this;
+}
+
+void Node::onDeleteNode() {
+    clearGlobalTag();
+    node_map_.erase( node_id_ );
+}
+
+void Node::onAttachNode() {
 }
 
 void Node::onDetachNode() {
-	node_map_.erase( getNodeId() );
 }
+
+const std::string& Node::getGlobalTag() {
+    return global_tag_id_;
+}
+
+void Node::setGlobalTag( const std::string& tag ) {
+    global_tag_id_ = tag;
+    tag_map_[global_tag_id_][node_id_] = this;
+}
+
+void Node::clearGlobalTag() {
+    if( !global_tag_id_.empty() ) {
+        //GLOBAL TAG情報から削除
+        auto f = tag_map_.find( global_tag_id_ );
+        if( f!=tag_map_.end() ) {
+            f->second.erase( node_id_ );
+            if( f->second.empty() ) {
+                tag_map_.erase( global_tag_id_ );
+            }
+        }
+        global_tag_id_.clear();
+    }
+}
+
 
 float Node::getTempo() {
 	return _tempo;
@@ -2464,6 +2498,26 @@ Node* Node::findNodeFromId( const std::string& id ) {
 	return f->second;
 }
 
+std::list<std::string> Node::findNodeIdFromGlobalTag( const std::string& tag ) {
+    std::list<std::string> ret;
+    auto f = tag_map_.find(tag);
+    if( f!=tag_map_.end() ) {
+        for( auto it : f->second ) {
+            ret.push_back( it.first );
+        }
+    }
+    return ret;
+}
 
+std::list<Node*> Node::findNodeFromGlobalTag( const std::string& tag ) {
+    std::list<Node*> ret;
+    auto f = tag_map_.find(tag);
+    if( f!=tag_map_.end() ) {
+        for( auto it : f->second ) {
+            ret.push_back( it.second );
+        }
+    }
+    return ret;
+}
 
 NS_CC_END
