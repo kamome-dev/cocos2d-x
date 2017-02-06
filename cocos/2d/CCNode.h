@@ -1913,13 +1913,22 @@ public:
 	virtual void setTempo( float tempo );
 	virtual void updateTempo();
 	const std::string& getNodeId();
+    virtual void onCreateNode();
+    virtual void onDeleteNode();
     virtual void onAttachNode();
     virtual void onDetachNode();
-    static Node* findNodeFromId( const std::string& id );
+	virtual void clearGlobalTag();
+	virtual void setGlobalTag( const std::string& tag );
+	virtual const std::string& getGlobalTag();
+	static std::list<Node*> findNodeFromGlobalTag( const std::string& tag );
+	static std::list<std::string> findNodeIdFromGlobalTag( const std::string& tag );
+	static Node* findNodeFromId( const std::string& id );
 protected:
 	static long node_id_count_;
 	static std::unordered_map<std::string,Node*> node_map_;
+	static std::unordered_map<std::string,std::unordered_map<std::string,Node*> > tag_map_;
 	std::string node_id_;
+	std::string global_tag_id_;
 	float _totaltempo;
 	float _tempo;
 };
